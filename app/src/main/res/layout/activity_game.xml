@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".GameActivity">
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="140dp"
+        android:layout_height="72dp"
+        android:text="Button"
+        tools:layout_editor_absoluteX="135dp"
+        tools:layout_editor_absoluteY="460dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

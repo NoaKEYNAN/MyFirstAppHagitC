@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C070CD"
+    android:background="@drawable/chooseimage"
     tools:context=".GameChoice">
 
     <Button
@@ -95,6 +95,7 @@
         android:background="#DBDFB0"
         android:backgroundTint="#CBD195"
         android:text="CLICK TO JOIN"
+        android:onClick="joinIntoAnExistRoomGame"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

@@ -1,6 +1,7 @@
 package com.hagitc.myfirstapplication;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -84,10 +85,20 @@ public class GameChoice extends AppCompatActivity {
         //this action indicates that you want to send data.
         shareIntent.setType("text/plain"); // for sharing text
         shareIntent.putExtra(Intent.EXTRA_TEXT, "Hello! THIS IS THE CODE FOR THE GAME: " + gameId + " JOIN THE GAME! THE CREATOR IS WAITING FOR YOU!");
-        startActivity(Intent.createChooser(shareIntent, "Share using"));
+        startActivityForResult(Intent.createChooser(shareIntent, "Share using"),1);
 
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Intent i = new Intent(this,GameActivity.class);
+                i.putExtra("gameId",gameId);
+                i.putExtra("player","host");
+                startActivity(i);
     }
 
     public void onclickCreateGame(View view)
@@ -112,5 +123,18 @@ public class GameChoice extends AppCompatActivity {
         enterCodeText.setVisibility(View.VISIBLE);
         clickToJoin.setVisibility(View.VISIBLE);
 
+    }
+
+    public void joinIntoAnExistRoomGame(View view)
+    {
+        //אחרי שהשחקן הוזמן למשחק על ידי משתמש אחר, הוא יכניס את הקוד שהוא קיבל.
+        //לאחר שהוא יכניס את הקוד שהוא קיבל הוא ילחץ על הכפתור של הצטרפות למשחק.
+        //בפעולה שלהלן הכפתור ישלח את השחקן לחדר משחק בהתאם לקוד שהוא הכניס.
+        EditText etCode = findViewById(R.id.entercodeET);
+        String gameCode = etCode.getText().toString();
+        Intent i = new Intent(this,GameActivity.class);
+        i.putExtra("gameId",gameCode);
+        i.putExtra("player","other");
+        startActivity(i);
     }
 }

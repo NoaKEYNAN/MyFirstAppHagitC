@@ -23,7 +23,6 @@ public class RoomGame
     }
 
 
-
     public String getStatus() {
         return status;
     }
