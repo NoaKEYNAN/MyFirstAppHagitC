@@ -37,6 +37,22 @@ public class BoardGame extends View
 
         presenter = new GamePresenter(this,g);
     }
+    public BoardGame(Context context,String docReference,String player)
+    {
+        super(context);
+        this.context = context;
+        squares = new Square [6][7];
+        misgeret = new Paint();
+        misgeret.setStyle(Paint.Style.STROKE);
+        misgeret.setColor(Color.BLACK);
+        misgeret.setStrokeWidth(10);
+        fill = new Paint();
+        fill.setColor(Color.WHITE);
+        presenter = new GamePresenter(this,g,docReference,player);
+    }
+
+
+
     public GameLogic getGameLogic()
     {
         return g;

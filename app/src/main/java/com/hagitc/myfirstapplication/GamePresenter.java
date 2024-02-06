@@ -1,5 +1,7 @@
 package com.hagitc.myfirstapplication;
 
+import static com.hagitc.myfirstapplication.AppConstants.ONE_PHONE;
+
 import android.graphics.Color;
 import android.view.MotionEvent;
 import android.widget.Toast;
@@ -12,10 +14,28 @@ public class GamePresenter
     private BoardGame boardGame;
     private GameLogic gameLogic;
 
+    private int gameConfig;
+
+    private String currPlayer="";
+    private String docRef="";
+
+
+
     public GamePresenter(BoardGame boardGame, GameLogic gameLogic)
     {
         this.boardGame = boardGame;
         this.gameLogic = gameLogic;
+        this.gameConfig = ONE_PHONE;
+    }
+
+    public GamePresenter(BoardGame boardGame, GameLogic gameLogic,String docRef,String player)
+    {
+        this.boardGame = boardGame;
+
+        this.gameLogic = gameLogic;
+        this.gameConfig = ONE_PHONE;
+        this.docRef = docRef;
+        this.currPlayer = player;
     }
 
     public void userClick(int column)

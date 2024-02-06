@@ -1,5 +1,11 @@
 package com.hagitc.myfirstapplication;
 
+import static com.hagitc.myfirstapplication.AppConstants.GAME_CONFIG;
+import static com.hagitc.myfirstapplication.AppConstants.HOST;
+import static com.hagitc.myfirstapplication.AppConstants.ONE_PHONE;
+import static com.hagitc.myfirstapplication.AppConstants.OTHER;
+import static com.hagitc.myfirstapplication.AppConstants.TWO_PHONES;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -97,7 +103,8 @@ public class GameChoice extends AppCompatActivity {
 
         Intent i = new Intent(this,GameActivity.class);
                 i.putExtra("gameId",gameId);
-                i.putExtra("player","host");
+                i.putExtra("player",HOST);
+                i.putExtra(GAME_CONFIG,TWO_PHONES);
                 startActivity(i);
     }
 
@@ -112,6 +119,7 @@ public class GameChoice extends AppCompatActivity {
     public void practicefunction(View view)
     {
         Intent intent = new Intent(GameChoice.this, GameActivity.class);
+        intent.putExtra(GAME_CONFIG,ONE_PHONE);
         startActivity(intent);
     }
 
@@ -134,7 +142,9 @@ public class GameChoice extends AppCompatActivity {
         String gameCode = etCode.getText().toString();
         Intent i = new Intent(this,GameActivity.class);
         i.putExtra("gameId",gameCode);
-        i.putExtra("player","other");
+        //put extra = צירוף שדות למסך בדרך של מפתח ערך
+        i.putExtra("player",OTHER);
+        i.putExtra(GAME_CONFIG,TWO_PHONES);
         startActivity(i);
     }
 }
