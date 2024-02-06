@@ -110,6 +110,8 @@ public class GameChoice extends AppCompatActivity {
 
     public void onclickCreateGame(View view)
     {
+
+
         roomGame = new RoomGame();
         roomGame.setStatus("CREATED");
         addRoomToFB();
