@@ -12,6 +12,6 @@ public class GameRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_room);
         BoardGame boardGame;
-        boardGame =
+      //  boardGame =
     }
 }
