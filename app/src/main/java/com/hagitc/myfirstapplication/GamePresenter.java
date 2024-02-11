@@ -1,6 +1,7 @@
 package com.hagitc.myfirstapplication;
 
 import static com.hagitc.myfirstapplication.AppConstants.ONE_PHONE;
+import static com.hagitc.myfirstapplication.AppConstants.TWO_PHONES;
 
 import android.graphics.Color;
 import android.view.MotionEvent;
@@ -27,13 +28,16 @@ public class GamePresenter
         this.gameLogic = gameLogic;
         this.gameConfig = ONE_PHONE;
     }
+    public String getDocRef()
+    {
+        return this.docRef;
+    }
 
     public GamePresenter(BoardGame boardGame, GameLogic gameLogic,String docRef,String player)
     {
         this.boardGame = boardGame;
-
         this.gameLogic = gameLogic;
-        this.gameConfig = ONE_PHONE;
+        this.gameConfig = TWO_PHONES;
         this.docRef = docRef;
         this.currPlayer = player;
     }

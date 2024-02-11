@@ -135,7 +135,7 @@ public class GameChoice extends AppCompatActivity {
         //בפעולה שלהלן הכפתור ישלח את השחקן לחדר משחק בהתאם לקוד שהוא הכניס.
         EditText etCode = findViewById(R.id.entercodeET);
         String gameCode = etCode.getText().toString();
-        Intent i = new Intent(this,GameActivity.class);
+        Intent i = new Intent(this, GameRoomActivity.class);
         i.putExtra("gameId",gameCode);
         //put extra = צירוף שדות למסך בדרך של מפתח ערך
         i.putExtra("player",OTHER);

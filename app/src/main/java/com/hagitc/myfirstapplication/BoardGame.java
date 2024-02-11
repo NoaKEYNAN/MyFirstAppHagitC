@@ -34,7 +34,6 @@ public class BoardGame extends View
         misgeret.setStrokeWidth(10);
         fill = new Paint();
         fill.setColor(Color.WHITE);
-
         presenter = new GamePresenter(this,g);
     }
     public BoardGame(Context context,String docReference,String player)
@@ -49,6 +48,11 @@ public class BoardGame extends View
         fill = new Paint();
         fill.setColor(Color.WHITE);
         presenter = new GamePresenter(this,g,docReference,player);
+
+    }
+    public GamePresenter getPresenter()
+    {
+        return this.presenter;
     }
 
 

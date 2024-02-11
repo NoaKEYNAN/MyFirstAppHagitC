@@ -13,20 +13,15 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        String gameConfig = getIntent().getStringExtra(GAME_CONFIG);
+//THIS ACTIVITY IS ONLY FOR A GAME FROM ONE PHONE.
+        int gameConfig = getIntent().getIntExtra(GAME_CONFIG,ONE_PHONE);
         // this means single phone
-        if(gameConfig.equals(ONE_PHONE))
-             boardGame = new BoardGame(this);
+        boardGame = new BoardGame(this);
         // else this means two phones, we need to get
         // doc reference and owner,
         // these should be passed to presenter,
         // which is created in board game
-        else {
-            //צריך להפעיל פה בנאי אחר שמתאים למשחק עם שני טלפונים
-            //boardGame = new BoardGame(this,);
-            //Context context,String docReference,String player
-        }
+
         setContentView(boardGame);
 
 
