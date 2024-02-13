@@ -21,10 +21,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class GameChoice extends AppCompatActivity {
     LinearLayout linearLayout;
@@ -34,6 +42,9 @@ public class GameChoice extends AppCompatActivity {
     //User creator = new User();
 
     private String gameId = "";
+    FirebaseFirestore fb = FirebaseFirestore.getInstance();
+    CollectionReference colRef;
+    DocumentReference gameRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -139,7 +150,23 @@ public class GameChoice extends AppCompatActivity {
         i.putExtra("gameId",gameCode);
         //put extra = צירוף שדות למסך בדרך של מפתח ערך
         i.putExtra("player",OTHER);
+
+        String gameId = getIntent().getStringExtra("gameId");
+        colRef = fb.collection("GameRooms");
+        gameRef = colRef.document(gameId);
+        //before I pass to another activity I need to check that there
+        //is only one player in the game room.
+
+
+
         i.putExtra(GAME_CONFIG,TWO_PHONES);
         startActivity(i);
+    }
+
+    public void ReadDataFromFB(View view)
+    {
+
+
+
     }
 }
