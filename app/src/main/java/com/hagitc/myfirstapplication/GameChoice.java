@@ -154,11 +154,6 @@ public class GameChoice extends AppCompatActivity {
         String gameId = getIntent().getStringExtra("gameId");
         colRef = fb.collection("GameRooms");
         gameRef = colRef.document(gameId);
-        //before I pass to another activity I need to check that there
-        //is only one player in the game room.
-
-
-
         i.putExtra(GAME_CONFIG,TWO_PHONES);
         startActivity(i);
     }

@@ -32,7 +32,8 @@ public class GameRoomActivity extends AppCompatActivity {
         //לשים בתוך פעולה.
         String gameId = getIntent().getStringExtra("gameId");
         colRef = fb.collection("GameRooms");
-        gameRef = colRef.document(gameId);
+        gameRef = colRef.document("B5urP8uZ4zAjeg2SOapU ");
+        //gameRef = colRef.document(gameId);
 
         getRoomData();
 
@@ -45,10 +46,8 @@ public class GameRoomActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
-
-
                     RoomGame room = (task.getResult().toObject(RoomGame.class));
-                    if(room.getStatus() == "Created")
+                    if(room.getStatus().equals("CREATED"))
                     {
                         room.setStatus("Joined");
                         //After the first player will do the
@@ -58,9 +57,9 @@ public class GameRoomActivity extends AppCompatActivity {
                     }
 
 
-                } else // not sucess
+                } else // not success
                 {
-                    Toast.makeText(GameRoomActivity.this, "Succeeded", Toast.LENGTH_LONG).show();
+                    Toast.makeText(GameRoomActivity.this, "NOT SUCCEEDED", Toast.LENGTH_LONG).show();
                     GameRoomActivity.this.finish();
 
 
