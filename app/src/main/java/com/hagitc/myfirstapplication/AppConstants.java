@@ -12,4 +12,6 @@ public class AppConstants {
     public final static String OTHER = "other";
 
 
+
+
 }

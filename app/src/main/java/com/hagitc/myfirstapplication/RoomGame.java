@@ -5,14 +5,14 @@ public class RoomGame
     private String status;//התחלתי משחק,הצטרפתי...
     private String namePlayer1;
     private String namePlayer2;
-    private int currentPlayer;
+    private String currentPlayer;
     private int touchedColumn;
 
 
     public RoomGame() {
     }
 
-    public RoomGame(String status, String namePlayer1, String namePlayer2, int currentPlayer, int touchedColumn)
+    public RoomGame(String status, String namePlayer1, String namePlayer2, String currentPlayer, int touchedColumn)
     {
         this.status = status;
         this.namePlayer1 = namePlayer1;
@@ -24,6 +24,7 @@ public class RoomGame
 
 
     public String getStatus() {
+        //"CREATED" or "JOINED"
         return status;
     }
 
@@ -47,11 +48,11 @@ public class RoomGame
         this.namePlayer2 = namePlayer2;
     }
 
-    public int getCurrentPlayer() {
+    public String getCurrentPlayer() {
         return currentPlayer;
     }
 
-    public void setCurrentPlayer(int currentPlayer) {
+    public void setCurrentPlayer(String currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
 

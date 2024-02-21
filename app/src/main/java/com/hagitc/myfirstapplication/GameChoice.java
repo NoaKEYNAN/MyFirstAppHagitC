@@ -111,7 +111,7 @@ public class GameChoice extends AppCompatActivity {
         Intent i = new Intent(this,GameActivity.class);
                 i.putExtra("gameId",gameId);
                 i.putExtra("player",HOST);
-                i.putExtra(GAME_CONFIG,TWO_PHONES);
+          //      i.putExtra(GAME_CONFIG,TWO_PHONES);
                 startActivity(i);
     }
 
@@ -119,13 +119,16 @@ public class GameChoice extends AppCompatActivity {
     {
         roomGame = new RoomGame();
         roomGame.setStatus("CREATED");
+        roomGame.setCurrentPlayer(HOST);
+        roomGame.setTouchedColumn(-1);
+        //in this way I know If this is the first move.
         addRoomToFB();
     }
 
     public void practicefunction(View view)
     {
         Intent intent = new Intent(GameChoice.this, GameActivity.class);
-        intent.putExtra(GAME_CONFIG,ONE_PHONE);
+    //    intent.putExtra(GAME_CONFIG,ONE_PHONE);
         startActivity(intent);
     }
 
@@ -154,7 +157,7 @@ public class GameChoice extends AppCompatActivity {
         String gameId = getIntent().getStringExtra("gameId");
         colRef = fb.collection("GameRooms");
         gameRef = colRef.document(gameId);
-        i.putExtra(GAME_CONFIG,TWO_PHONES);
+      //  i.putExtra(GAME_CONFIG,TWO_PHONES);
         startActivity(i);
     }
 
