@@ -12,13 +12,10 @@ public class GamePresenter
     //This class is responsible for the logic of this game.
     //It combines between both of the other classes.
 
-    private BoardGame boardGame;
-    private GameLogic gameLogic;
+    protected BoardGame boardGame;
+    protected GameLogic gameLogic;
 
-    private int gameConfig;
-
-    private String currPlayer="";
-    private String docRef="";
+    protected int gameConfig;
 
 
 
@@ -28,19 +25,8 @@ public class GamePresenter
         this.gameLogic = gameLogic;
         this.gameConfig = ONE_PHONE;
     }
-    public String getDocRef()
-    {
-        return this.docRef;
-    }
 
-    public GamePresenter(BoardGame boardGame, GameLogic gameLogic,String docRef,String player)
-    {
-        this.boardGame = boardGame;
-        this.gameLogic = gameLogic;
-        this.gameConfig = TWO_PHONES;
-        this.docRef = docRef;
-        this.currPlayer = player;
-    }
+
 
     public void userClick(int column)
     {

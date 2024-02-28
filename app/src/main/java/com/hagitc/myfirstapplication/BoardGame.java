@@ -1,5 +1,6 @@
 package com.hagitc.myfirstapplication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -36,6 +37,7 @@ public class BoardGame extends View
         fill.setColor(Color.WHITE);
         presenter = new GamePresenter(this,g);
     }
+    // two phones constructor
     public BoardGame(Context context,String docReference,String player)
     {
         super(context);
@@ -47,7 +49,8 @@ public class BoardGame extends View
         misgeret.setStrokeWidth(10);
         fill = new Paint();
         fill.setColor(Color.WHITE);
-        presenter = new GamePresenter(this,g,docReference,player);
+        // pass the xcontext for firebase listening - reomve when activity is finished
+        presenter = new GameRoomPresenter(this,g,docReference,player,(Activity)context);
 
     }
     public GamePresenter getPresenter()

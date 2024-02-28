@@ -154,9 +154,7 @@ public class GameChoice extends AppCompatActivity {
         //put extra = צירוף שדות למסך בדרך של מפתח ערך
         i.putExtra("player",OTHER);
 
-        String gameId = getIntent().getStringExtra("gameId");
-        colRef = fb.collection("GameRooms");
-        gameRef = colRef.document(gameId);
+
       //  i.putExtra(GAME_CONFIG,TWO_PHONES);
         startActivity(i);
     }
