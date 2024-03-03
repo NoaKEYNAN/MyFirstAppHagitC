@@ -5,6 +5,7 @@ import static com.hagitc.myfirstapplication.AppConstants.OTHER;
 import static com.hagitc.myfirstapplication.AppConstants.TWO_PHONES;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -182,4 +183,81 @@ public class GameRoomPresenter extends GamePresenter{
 
 
 }
+    public void userClick(int column)
+    //this function is overriding the function
+            //userClick() in the presenter class.
+            //I need to update the move in fb.
+    {
+        int row = gameLogic.userClick(column);
+        boolean flag = false;//it will be change after a legal action
+        if (row != (-1)) //אם זה מהלך חוקי
+        {
+            if (gameLogic.getCurrentPlayer() == 1)
+            {
+                boardGame.updateBoard(row, column, Color.RED);
+                gameLogic.setCounter(gameLogic.getCounter() + 1);
+                //update in fb
+                gameRef = colRef.document(docRef);
+                gameRef.update("touchedColumn", column);
+            }
+            else
+            {
+                boardGame.updateBoard(row, column, Color.YELLOW);
+                gameLogic.setCounter(gameLogic.getCounter() + 1);
+                //update in fb
+                gameRef = colRef.document(docRef);
+                gameRef.update("touchedColumn", column);
+
+            }
+            flag = true;
+        }
+        else
+        {
+            //if it is an illegal action.
+            if (gameLogic.isBoardFull() == false)
+            {
+                boardGame.displayMessage("TRY AGAIN");
+                gameLogic.switchPlayer();
+            }
+        }
+        if (gameLogic.getCounter() >= 8 && gameLogic.getCounter() <= 42 && flag == true)
+        //בודקת אחרי המהלך במידה והוא היה חוקי, אם יש ניצחון או שהלוח מלא וזה תיקו
+        {
+            boolean result = gameLogic.checkForWin();
+            if (result == true)
+            {
+                int currentplayer1 = 0;
+                if (gameLogic.getCurrentPlayer() == 1)
+                {
+                    currentplayer1 = 1;
+                }
+                else
+                {
+                    currentplayer1 = 2;
+                }
+                boardGame.displayMessage("PLAYER" + currentplayer1 + " WON!");
+
+                //TO ADD A BUTTON THAT RESTART THE GAME
+                //to update in fb the column to become -1
+                if (gameLogic.isBoardFull() == true)
+                {
+                    boardGame.displayMessage("THE GAME IS END");
+                    //אם אחרי הניצחון הלוח מלא אז המשחק נגמר
+                    //צריך להוסיף כפתור שמסיים את המשחק
+                    //to update in fb the column to become -1.
+                    gameRef = colRef.document(docRef);
+                    gameRef.update("touchedColumn", -1);
+                }
+
+            }
+            if(gameLogic.isBoardFull()==true)
+            {
+                boardGame.displayMessage("IT IS A TIE AND THE GAME IS END");
+                //TO ADD A RESTART BUTTON
+                //to update in fb the touched column to become -1.
+                gameRef = colRef.document(docRef);
+                gameRef.update("touchedColumn", column);
+            }
+        }
+    }
 }
