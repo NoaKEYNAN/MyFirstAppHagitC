@@ -37,6 +37,8 @@ public class GameRoomPresenter extends GamePresenter{
     CollectionReference colRef; //THE HEAD OT THE COLLECTION.
     DocumentReference gameRef;
 
+    private RoomGame roomGame=null;
+
 
 
     public GameRoomPresenter(BoardGame boardGame, GameLogic gameLogic, String docRef, String player,Activity c) {
@@ -102,7 +104,6 @@ public class GameRoomPresenter extends GamePresenter{
 
     }
 
-
     //
     private void listenForGameChanges() {
 
@@ -119,7 +120,7 @@ public class GameRoomPresenter extends GamePresenter{
 
                 if (documentSnapshot == null || !documentSnapshot.exists())
                     return;
-                RoomGame roomGame = documentSnapshot.toObject(RoomGame.class);
+                 roomGame = documentSnapshot.toObject(RoomGame.class);
                 // this means HOST recieved before other joined...
                 // should nut happen but better be safe than sorry:-)
                 if (roomGame.getStatus().equals("Created")) {
@@ -156,8 +157,6 @@ public class GameRoomPresenter extends GamePresenter{
                         }
                         // this means that there is a move
                         userClick(touchedColumn);
-
-
                     }
                 }
 
@@ -174,6 +173,8 @@ public class GameRoomPresenter extends GamePresenter{
                 //      if current player is other
                 //      1. if host -> do nothing
                 //      2. if other -> play and change current player to host
+
+
 
 
             }
@@ -198,15 +199,22 @@ public class GameRoomPresenter extends GamePresenter{
                 gameLogic.setCounter(gameLogic.getCounter() + 1);
                 //update in fb
                 gameRef = colRef.document(docRef);
-                gameRef.update("touchedColumn", column);
+                if(roomGame!=null)
+                {
+                    roomGame.setTouchedColumn(column);
+                    roomGame.switchPlayer();
+                    gameRef.set(roomGame);
+
+                }
             }
             else
             {
                 boardGame.updateBoard(row, column, Color.YELLOW);
                 gameLogic.setCounter(gameLogic.getCounter() + 1);
                 //update in fb
-                gameRef = colRef.document(docRef);
-                gameRef.update("touchedColumn", column);
+                roomGame.setTouchedColumn(column);
+                roomGame.switchPlayer();
+                gameRef.set(roomGame);
 
             }
             flag = true;
@@ -239,14 +247,18 @@ public class GameRoomPresenter extends GamePresenter{
 
                 //TO ADD A BUTTON THAT RESTART THE GAME
                 //to update in fb the column to become -1
+                roomGame.setTouchedColumn(-1);
+                roomGame.setCurrentPlayer(HOST);
+                gameRef.set(roomGame);
                 if (gameLogic.isBoardFull() == true)
                 {
                     boardGame.displayMessage("THE GAME IS END");
                     //אם אחרי הניצחון הלוח מלא אז המשחק נגמר
                     //צריך להוסיף כפתור שמסיים את המשחק
                     //to update in fb the column to become -1.
-                    gameRef = colRef.document(docRef);
-                    gameRef.update("touchedColumn", -1);
+                    roomGame.setTouchedColumn(-1);
+                    roomGame.setCurrentPlayer(HOST);
+                    gameRef.set(roomGame);
                 }
 
             }
@@ -255,8 +267,9 @@ public class GameRoomPresenter extends GamePresenter{
                 boardGame.displayMessage("IT IS A TIE AND THE GAME IS END");
                 //TO ADD A RESTART BUTTON
                 //to update in fb the touched column to become -1.
-                gameRef = colRef.document(docRef);
-                gameRef.update("touchedColumn", column);
+                roomGame.setTouchedColumn(-1);
+                roomGame.setCurrentPlayer(HOST);
+                gameRef.set(roomGame);
             }
         }
     }

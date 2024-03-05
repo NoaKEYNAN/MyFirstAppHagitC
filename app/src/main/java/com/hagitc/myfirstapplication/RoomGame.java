@@ -63,4 +63,13 @@ public class RoomGame
     public void setTouchedColumn(int touchedColumn) {
         this.touchedColumn = touchedColumn;
     }
+
+
+    public void switchPlayer()
+    {
+        if(this.currentPlayer.equals(AppConstants.HOST))
+            this.currentPlayer = AppConstants.OTHER;
+        else
+            this.currentPlayer = AppConstants.HOST;
+    }
 }
