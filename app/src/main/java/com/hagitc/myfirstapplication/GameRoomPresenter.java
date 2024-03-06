@@ -191,7 +191,7 @@ public class GameRoomPresenter extends GamePresenter{
     {
         int row = gameLogic.userClick(column);
         boolean flag = false;//it will be change after a legal action
-        if (row != (-1)) //אם זה מהלך חוקי
+        if (row != (-1)) //if it is a legal move
         {
             if (gameLogic.getCurrentPlayer() == 1)
             {

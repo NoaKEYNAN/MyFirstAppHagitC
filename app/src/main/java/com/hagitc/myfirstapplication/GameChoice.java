@@ -108,7 +108,7 @@ public class GameChoice extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Intent i = new Intent(this,GameActivity.class);
+        Intent i = new Intent(this,GameRoomActivity.class);
                 i.putExtra("gameId",gameId);
                 i.putExtra("player",HOST);
           //      i.putExtra(GAME_CONFIG,TWO_PHONES);
