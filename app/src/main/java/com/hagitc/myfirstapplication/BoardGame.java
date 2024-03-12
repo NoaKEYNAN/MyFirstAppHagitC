@@ -49,7 +49,7 @@ public class BoardGame extends View
         misgeret.setStrokeWidth(10);
         fill = new Paint();
         fill.setColor(Color.WHITE);
-        // pass the xcontext for firebase listening - reomve when activity is finished
+        // pass the context for firebase listening - reomve when activity is finished
         presenter = new GameRoomPresenter(this,g,docReference,player,(Activity)context);
 
     }

@@ -30,7 +30,7 @@ public class GameRoomActivity extends AppCompatActivity {
 
     private BoardGame boardGame;
 
-    private GamePresenter gamePresenter = boardGame.getPresenter();
+    private GamePresenter gamePresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //after you click to join to an exists game room.
@@ -42,6 +42,7 @@ public class GameRoomActivity extends AppCompatActivity {
       //gameRef = colRef.document(gameId);
 
          boardGame= new BoardGame(this, gameId, player);
+        gamePresenter = boardGame.getPresenter();
 
 
     }

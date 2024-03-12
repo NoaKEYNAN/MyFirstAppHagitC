@@ -118,7 +118,7 @@ public class GameChoice extends AppCompatActivity {
     public void onclickCreateGame(View view)
     {
         roomGame = new RoomGame();
-        roomGame.setStatus("CREATED");
+        roomGame.setStatus(AppConstants.CREATED);
         roomGame.setCurrentPlayer(HOST);
         roomGame.setTouchedColumn(-1);
         //in this way I know If this is the first move.

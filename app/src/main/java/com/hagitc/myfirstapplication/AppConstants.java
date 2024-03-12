@@ -11,6 +11,10 @@ public class AppConstants {
 
     public final static String OTHER = "other";
 
+    public static final String JOINED = "Joined";
+
+    public static final String CREATED = "Created";
+
 
 
 

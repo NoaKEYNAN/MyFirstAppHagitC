@@ -1,6 +1,8 @@
 package com.hagitc.myfirstapplication;
 
+import static com.hagitc.myfirstapplication.AppConstants.CREATED;
 import static com.hagitc.myfirstapplication.AppConstants.HOST;
+import static com.hagitc.myfirstapplication.AppConstants.JOINED;
 import static com.hagitc.myfirstapplication.AppConstants.OTHER;
 import static com.hagitc.myfirstapplication.AppConstants.TWO_PHONES;
 
@@ -80,9 +82,9 @@ public class GameRoomPresenter extends GamePresenter{
                     // if the status is created
                     //      1. if I am the host - cannot reach here...
                     //      2. if I am other -> change status to JOINED
-                    if(room.getStatus().equals("CREATED") && currPlayer.equals(OTHER))
+                    if(room.getStatus().equals(CREATED) && currPlayer.equals(OTHER))
                     {
-                        room.setStatus("Joined");
+                        room.setStatus(JOINED);
                         //After the first player will do the
                         //first action
                         //the status will be changed
@@ -110,6 +112,13 @@ public class GameRoomPresenter extends GamePresenter{
         // including - this which is a reference to the activity
         // this means that once Activity is finished -
         // it will remove the listening action
+        if(gameRef==null)
+        {
+            colRef = fb.collection("GameRooms");
+            gameRef = colRef.document("B5urP8uZ4zAjeg2SOapU"); // docRef
+
+        }
+
 
         gameRef.addSnapshotListener(hostingActivity,new EventListener<DocumentSnapshot>() {
             @Override
@@ -123,11 +132,11 @@ public class GameRoomPresenter extends GamePresenter{
                  roomGame = documentSnapshot.toObject(RoomGame.class);
                 // this means HOST recieved before other joined...
                 // should nut happen but better be safe than sorry:-)
-                if (roomGame.getStatus().equals("Created")) {
+                if (roomGame.getStatus().equals(CREATED)) {
                     return;
                 }
 
-                if (roomGame.getStatus().equals("JOINED")) {
+                if (roomGame.getStatus().equals(JOINED)) {
                     if (roomGame.getCurrentPlayer().equals(HOST)) {
                         // if current column is -1 this means start game
                         int touchedColumn = roomGame.getTouchedColumn();
