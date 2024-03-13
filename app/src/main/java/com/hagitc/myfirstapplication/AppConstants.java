@@ -14,6 +14,7 @@ public class AppConstants {
     public static final String JOINED = "Joined";
 
     public static final String CREATED = "Created";
+    public static String DEBUG_GAME_ID = "B5urP8uZ4zAjeg2SOapU";
 
 
 

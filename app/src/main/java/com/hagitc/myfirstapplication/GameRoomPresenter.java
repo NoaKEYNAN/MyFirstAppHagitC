@@ -1,6 +1,7 @@
 package com.hagitc.myfirstapplication;
 
 import static com.hagitc.myfirstapplication.AppConstants.CREATED;
+import static com.hagitc.myfirstapplication.AppConstants.DEBUG_GAME_ID;
 import static com.hagitc.myfirstapplication.AppConstants.HOST;
 import static com.hagitc.myfirstapplication.AppConstants.JOINED;
 import static com.hagitc.myfirstapplication.AppConstants.OTHER;
@@ -70,7 +71,7 @@ public class GameRoomPresenter extends GamePresenter{
     private void getRoomData() {
 
         colRef = fb.collection("GameRooms");
-        gameRef = colRef.document("B5urP8uZ4zAjeg2SOapU"); // docRef
+        gameRef = colRef.document(DEBUG_GAME_ID); // docRef
 
 
 
@@ -89,6 +90,7 @@ public class GameRoomPresenter extends GamePresenter{
                         //first action
                         //the status will be changed
                         //into started
+                        gameRef.set(room);
                         listenForGameChanges();
                     }
 
@@ -115,7 +117,7 @@ public class GameRoomPresenter extends GamePresenter{
         if(gameRef==null)
         {
             colRef = fb.collection("GameRooms");
-            gameRef = colRef.document("B5urP8uZ4zAjeg2SOapU"); // docRef
+            gameRef = colRef.document(DEBUG_GAME_ID); // docRef
 
         }
 
@@ -137,10 +139,14 @@ public class GameRoomPresenter extends GamePresenter{
                 }
 
                 if (roomGame.getStatus().equals(JOINED)) {
-                    if (roomGame.getCurrentPlayer().equals(HOST)) {
+                    // if localplayer equals FB Player
+                    // this means it is my TURN
+                    // only for first move xcoliumn -1 ???
+                    if (roomGame.getCurrentPlayer().equals(currPlayer)) {
                         // if current column is -1 this means start game
                         int touchedColumn = roomGame.getTouchedColumn();
 
+                        // will be true only if HOST first MOVE!
                         if (touchedColumn == -1) {
                             Toast.makeText(hostingActivity, " Let's start...", Toast.LENGTH_LONG).show();
                             return;
@@ -154,6 +160,7 @@ public class GameRoomPresenter extends GamePresenter{
 
 
                     }
+                    /*
                     //roomGame.getCurrentPlayer().equals(OTHER))
                     else // this means it is OTHER
                     {
@@ -167,6 +174,8 @@ public class GameRoomPresenter extends GamePresenter{
                         // this means that there is a move
                         userClick(touchedColumn);
                     }
+
+                     */
                 }
 
 

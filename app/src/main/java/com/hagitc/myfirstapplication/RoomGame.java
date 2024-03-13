@@ -9,6 +9,7 @@ public class RoomGame
     private int touchedColumn;
 
 
+
     public RoomGame() {
     }
 

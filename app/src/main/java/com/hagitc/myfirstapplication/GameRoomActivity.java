@@ -1,5 +1,6 @@
 package com.hagitc.myfirstapplication;
 
+import static com.hagitc.myfirstapplication.AppConstants.DEBUG_GAME_ID;
 import static com.hagitc.myfirstapplication.AppConstants.HOST;
 import static com.hagitc.myfirstapplication.AppConstants.OTHER;
 
@@ -53,7 +54,7 @@ public class GameRoomActivity extends AppCompatActivity {
         //It is like a list
         //that the collection is the head of the list.
 
-        gameId = "B5urP8uZ4zAjeg2SOapU";//getIntent().getStringExtra("gameId");
+        gameId = DEBUG_GAME_ID;//getIntent().getStringExtra("gameId");
 
         // OTHER or HOST
         player = getIntent().getStringExtra("player");
