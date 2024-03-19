@@ -99,4 +99,13 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="83dp"
+        android:layout_height="90dp"
+        android:onClick="questionMarkClicked"
+        app:srcCompat="@drawable/img"
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="29dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

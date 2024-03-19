@@ -90,8 +90,13 @@ public class GameRoomPresenter extends GamePresenter{
                         //first action
                         //the status will be changed
                         //into started
-                        gameRef.set(room);
-                        listenForGameChanges();
+                        gameRef.set(room).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                listenForGameChanges();
+
+                            }
+                        });
                     }
 
 
@@ -202,6 +207,7 @@ public class GameRoomPresenter extends GamePresenter{
 
 
 }
+@Override
     public void userClick(int column)
     //this function is overriding the function
             //userClick() in the presenter class.

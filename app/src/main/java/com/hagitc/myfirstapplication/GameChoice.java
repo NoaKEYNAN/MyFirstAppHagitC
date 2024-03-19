@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -153,8 +154,6 @@ public class GameChoice extends AppCompatActivity {
         i.putExtra("gameId",gameCode);
         //put extra = צירוף שדות למסך בדרך של מפתח ערך
         i.putExtra("player",OTHER);
-
-
       //  i.putExtra(GAME_CONFIG,TWO_PHONES);
         startActivity(i);
     }
@@ -164,5 +163,10 @@ public class GameChoice extends AppCompatActivity {
 
 
 
+    }
+
+    public void questionMarkClicked(View view) {
+        Dialog dialog = new Dialog (this);
+        dialog.setContentView(R.layout.custom_dialog_box_instructions);
     }
 }

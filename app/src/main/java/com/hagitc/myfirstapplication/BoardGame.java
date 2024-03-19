@@ -24,6 +24,7 @@ public class BoardGame extends View
     GamePresenter presenter;
 
 
+
     public BoardGame(Context context)
     {
         super(context);

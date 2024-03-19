@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="299dp"
+        android:layout_height="468dp"
+        android:background="#CCA6677D"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="247dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="31dp"
+            android:text="INSTRUCTIONS"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="250dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="31dp"
+            android:layout_marginBottom="9dp"
+            android:text="Welcome to my FOUR IN A ROW game."
+            app:layout_constraintBottom_toTopOf="@+id/textView4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="256dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="159dp"
+            android:text="The four in a row rules are very simple. It’s always played with 2 players and in a 7x6 board. Each turn each player puts a piece of his color inside a column and it will fall until it reaches the lowest available spot. The one who can put 4 pieces of the same color in a row horizontally, vertically or diagonally wins. If no one manages to do it then the match ends in a draw."
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

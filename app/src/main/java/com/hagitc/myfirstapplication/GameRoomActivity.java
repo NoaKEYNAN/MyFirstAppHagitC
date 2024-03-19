@@ -33,32 +33,35 @@ public class GameRoomActivity extends AppCompatActivity {
 
     private GamePresenter gamePresenter;
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         //after you click to join to an exists game room.
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_room);
+    //    setContentView(R.layout.activity_game_room);
 
         // get intent data
         getIntentDataConfiguration();
       //gameRef = colRef.document(gameId);
 
-         boardGame= new BoardGame(this, gameId, player);
+        boardGame= new BoardGame(this, gameId, player);
         gamePresenter = boardGame.getPresenter();
+
+        setContentView(boardGame);
+        //this line allows me to present the board game.
 
 
     }
 
-    private void getIntentDataConfiguration() {
+    private void getIntentDataConfiguration()
+    {
         /// game Id is the specific place of
         //the room game.
         //It is like a list
         //that the collection is the head of the list.
-
         gameId = DEBUG_GAME_ID;//getIntent().getStringExtra("gameId");
 
         // OTHER or HOST
         player = getIntent().getStringExtra("player");
-
     }
 
 
