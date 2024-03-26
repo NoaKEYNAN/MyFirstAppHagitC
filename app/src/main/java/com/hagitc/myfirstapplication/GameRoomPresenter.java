@@ -71,7 +71,7 @@ public class GameRoomPresenter extends GamePresenter{
     private void getRoomData() {
 
         colRef = fb.collection("GameRooms");
-        gameRef = colRef.document(DEBUG_GAME_ID); // docRef
+        gameRef = colRef.document(this.docRef); // docRef
 
 
 
@@ -90,13 +90,14 @@ public class GameRoomPresenter extends GamePresenter{
                         //first action
                         //the status will be changed
                         //into started
-                        gameRef.set(room).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
+                        gameRef.set(room);
+                        //.addOnCompleteListener(new OnCompleteListener<Void>() {
+                        //    @Override
+                           // public void onComplete(@NonNull Task<Void> task) {
                                 listenForGameChanges();
 
-                            }
-                        });
+                        //    }
+                       // });
                     }
 
 
@@ -122,7 +123,7 @@ public class GameRoomPresenter extends GamePresenter{
         if(gameRef==null)
         {
             colRef = fb.collection("GameRooms");
-            gameRef = colRef.document(DEBUG_GAME_ID); // docRef
+            gameRef = colRef.document(this.docRef); // docRef
 
         }
 

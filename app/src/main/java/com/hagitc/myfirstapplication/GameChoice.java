@@ -162,11 +162,11 @@ public class GameChoice extends AppCompatActivity {
     {
 
 
-
     }
 
     public void questionMarkClicked(View view) {
         Dialog dialog = new Dialog (this);
         dialog.setContentView(R.layout.custom_dialog_box_instructions);
+        dialog.show();
     }
 }
