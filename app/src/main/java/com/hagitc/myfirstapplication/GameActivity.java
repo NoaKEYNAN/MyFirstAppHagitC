@@ -21,8 +21,8 @@ public class GameActivity extends AppCompatActivity {
         // doc reference and owner,
         // these should be passed to presenter,
         // which is created in board game
-
         setContentView(boardGame);
+
 
 
 
