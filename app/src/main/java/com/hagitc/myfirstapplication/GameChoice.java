@@ -81,6 +81,7 @@ public class GameChoice extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.d("ONFAILER", "onFailure: " + e.getMessage());
+                        //e presents a message that explains why it did not success.
                     }
                 });
 
