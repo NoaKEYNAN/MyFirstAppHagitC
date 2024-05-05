@@ -144,7 +144,7 @@ public class GameRoomPresenter extends GamePresenter {
                 if (roomGame.getStatus().equals(JOINED)) {
                     // if localplayer equals FB Player
                     // this means it is my TURN
-                    // only for first move xcoliumn -1 ???
+                    // only for first move xcoliumn -1
                     if (roomGame.getCurrentPlayer().equals(currPlayer)) {
                         // if current column is -1 this means start game
                         int touchedColumn = roomGame.getTouchedColumn();
@@ -212,7 +212,7 @@ public class GameRoomPresenter extends GamePresenter {
         if (flag == true)//legal move
         {
             int row = gameLogic.userClick(roomGame.getTouchedColumn());
-            if (roomGame.getCurrentPlayer().equals(CREATED)) {
+            if (roomGame.getCurrentPlayer().equals(CREATED) || gameLogic.getCurrentPlayer() == 1 ) {
                 boardGame.updateBoard(row, roomGame.getTouchedColumn(), Color.RED);
                 gameLogic.setCounter(gameLogic.getCounter() + 1);
                 //update in fb
