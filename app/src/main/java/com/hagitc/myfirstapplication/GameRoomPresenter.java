@@ -144,7 +144,7 @@ public class GameRoomPresenter extends GamePresenter {
                 if (roomGame.getStatus().equals(JOINED)) {
                     // if localplayer equals FB Player
                     // this means it is my TURN
-                    // only for first move xcoliumn -1
+                    // only for first move column -1
                     if (roomGame.getCurrentPlayer().equals(currPlayer)) {
                         // if current column is -1 this means start game
                         int touchedColumn = roomGame.getTouchedColumn();
@@ -156,7 +156,7 @@ public class GameRoomPresenter extends GamePresenter {
                         }
                         // else we know that:
                         // other player has already played
-                        // reac the touched column
+                        // reach the touched column
                         // set
 
                         // userClick(touchedColumn);
@@ -211,11 +211,12 @@ public class GameRoomPresenter extends GamePresenter {
         // currentplayer
         if (flag == true)//legal move
         {
-            int row = gameLogic.userClick(roomGame.getTouchedColumn());
+           int row = gameLogic.userClick(roomGame.getTouchedColumn());
             if (roomGame.getCurrentPlayer().equals(CREATED) || gameLogic.getCurrentPlayer() == 1 ) {
                 boardGame.updateBoard(row, roomGame.getTouchedColumn(), Color.RED);
                 gameLogic.setCounter(gameLogic.getCounter() + 1);
                 //update in fb
+                /*
                 gameRef = colRef.document(docRef);
                 if (roomGame != null) {
                     roomGame.setTouchedColumn(roomGame.getTouchedColumn());
@@ -223,15 +224,20 @@ public class GameRoomPresenter extends GamePresenter {
                     gameRef.set(roomGame);
 
                 }
+
+                 */
             }
             else
             {
                 boardGame.updateBoard(row, roomGame.getTouchedColumn(), Color.YELLOW);
                 gameLogic.setCounter(gameLogic.getCounter() + 1);
                 //update in fb
+                /*
                 roomGame.setTouchedColumn(roomGame.getTouchedColumn());
                 roomGame.switchPlayer();
                 gameRef.set(roomGame);
+
+                 */
 
             }
 
@@ -241,7 +247,7 @@ public class GameRoomPresenter extends GamePresenter {
             if (gameLogic.isBoardFull() == false)
             {
                 boardGame.displayMessage("TRY AGAIN");
-                gameLogic.switchPlayer();
+                gameLogic.switchPlayer(); //???? ONLY IN FIREBASE???
             }
         }
 
@@ -301,19 +307,34 @@ public class GameRoomPresenter extends GamePresenter {
     //userClick() in the presenter class.
     //I need to update the move in fb.
     {
-        if (column != (-1)) {
+        if(column ==-1)
+            return;
+
+        int row =gameLogic.checkLegalMove(column);// gameLogic.userClick(column);
+        if (row ==-1) //if it is a legal move -> update firebase
+        {
+            boardGame.displayMessage("THIS COLUMN IS FULL");
+            return;
+        }
+
+        // this means the move is legal
+        // update firebase
             gameRef = colRef.document(docRef);
             if (roomGame != null)
             {
                 roomGame.setTouchedColumn(column);
                 gameRef.set(roomGame);
             }
-        }
-        int row = gameLogic.userClick(column);
+
+
+
+        // selected row without updating the logical board and trhe ui
+        // they will be updated once onEvent is triggered by the firebase after the change
+
         //userClick() return which row you can paint- if the column is full it will return (-1)
         //else the function will return the row in the touched column you can paint.
-
-        if (row != (-1)) //if it is a legal move
+/*
+        if (row != (-1)) //if it is a legal move -> update firebase
         {
             flag = true;
             updateUI(roomGame);
@@ -322,6 +343,8 @@ public class GameRoomPresenter extends GamePresenter {
         {
             updateUI(roomGame);
         }
+
+ */
     }
 }
 

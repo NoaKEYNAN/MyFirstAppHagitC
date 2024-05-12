@@ -38,6 +38,20 @@ public class GameLogic
         this.currentPlayer= this.currentPlayer * (-1);
     }
 
+    public int checkLegalMove(int col)
+    {
+        boolean found = false;
+        for(int i=arr.length-1; i>=0;i--)
+        {
+            if(arr[i][col] == 0)
+            {
+               return i;
+            }
+        }
+        return  -1;
+
+    }
+
     public int userClick(int touchedColumn)
     {
         //אני מקבלת כפרמטר את המספר העמודה שהמשתמש לחץ עליה.
