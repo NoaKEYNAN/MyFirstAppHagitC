@@ -209,10 +209,10 @@ public class GameRoomPresenter extends GamePresenter {
     private void updateUI(RoomGame roomGame) {
         // touched column
         // currentplayer
-        if (flag == true)//legal move
-        {
+      //  if (flag == true)//legal move
+        //{
            int row = gameLogic.userClick(roomGame.getTouchedColumn());
-            if (roomGame.getCurrentPlayer().equals(CREATED) || gameLogic.getCurrentPlayer() == 1 ) {
+            if (roomGame.getCurrentPlayer().equals(HOST) || gameLogic.getCurrentPlayer() == 1 ) {
                 boardGame.updateBoard(row, roomGame.getTouchedColumn(), Color.RED);
                 gameLogic.setCounter(gameLogic.getCounter() + 1);
                 //update in fb
@@ -241,7 +241,8 @@ public class GameRoomPresenter extends GamePresenter {
 
             }
 
-        }
+   //     }
+        /*
         else //it means it is an illegal move (flag == false)
         {
             if (gameLogic.isBoardFull() == false)
@@ -251,7 +252,9 @@ public class GameRoomPresenter extends GamePresenter {
             }
         }
 
-        if (gameLogic.getCounter() >= 8 && gameLogic.getCounter() <= 42 && flag == true)
+
+         */
+        if (gameLogic.getCounter() >= 8 && gameLogic.getCounter() <= 42)
         //בודקת אחרי המהלך במידה והוא היה חוקי, אם יש ניצחון או שהלוח מלא וזה תיקו
         {
             boolean result = gameLogic.checkForWin();
@@ -323,6 +326,7 @@ public class GameRoomPresenter extends GamePresenter {
             if (roomGame != null)
             {
                 roomGame.setTouchedColumn(column);
+                switchFBPlayer(roomGame);
                 gameRef.set(roomGame);
             }
 
@@ -345,6 +349,15 @@ public class GameRoomPresenter extends GamePresenter {
         }
 
  */
+    }
+
+    private void switchFBPlayer(RoomGame roomGame) {
+
+        if(roomGame.getCurrentPlayer().equals(HOST))
+            roomGame.setCurrentPlayer(OTHER);
+        else
+            roomGame.setCurrentPlayer(HOST);
+
     }
 }
 

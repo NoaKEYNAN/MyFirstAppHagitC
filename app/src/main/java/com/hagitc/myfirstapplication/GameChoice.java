@@ -103,7 +103,6 @@ public class GameChoice extends AppCompatActivity {
         shareIntent.setType("text/plain"); // for sharing text
         shareIntent.putExtra(Intent.EXTRA_TEXT, "Hello! THIS IS THE CODE FOR THE GAME: " + gameId + " JOIN THE GAME! THE CREATOR IS WAITING FOR YOU!");
         startActivityForResult(Intent.createChooser(shareIntent, "Share using"),1);
-
     }
 
     @Override
