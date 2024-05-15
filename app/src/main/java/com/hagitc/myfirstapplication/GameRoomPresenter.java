@@ -207,10 +207,19 @@ public class GameRoomPresenter extends GamePresenter {
     private void updateUI(RoomGame roomGame)
     {
            int row = gameLogic.userClick(roomGame.getTouchedColumn());
-            if (roomGame.getCurrentPlayer().equals(HOST))
+            if (roomGame.getCurrentPlayer().equals(currPlayer))//in FB
             {
+
                 boardGame.updateBoard(row, roomGame.getTouchedColumn(), Color.RED);
                 gameLogic.setCounter(gameLogic.getCounter() + 1);
+
+            }
+                else
+                {
+                    boardGame.updateBoard(row, roomGame.getTouchedColumn(), Color.YELLOW);
+                    gameLogic.setCounter(gameLogic.getCounter() + 1);
+                }
+
                 //update in fb
                 /*
                 gameRef = colRef.document(docRef);
@@ -222,12 +231,8 @@ public class GameRoomPresenter extends GamePresenter {
                 }
 
                  */
-            }
-            else
-            {
-                boardGame.updateBoard(row, roomGame.getTouchedColumn(), Color.YELLOW);
-                gameLogic.setCounter(gameLogic.getCounter() + 1);
-            }
+
+
 
    //     }
         /*
