@@ -60,10 +60,7 @@ public class GameRoomPresenter extends GamePresenter {
         else
             // else - get room data, set status to joined and then listen for changes
             getRoomData();
-
-
     }
-
 
     // only OTHER player reaches
 
@@ -117,7 +114,8 @@ public class GameRoomPresenter extends GamePresenter {
         // including - this which is a reference to the activity
         // this means that once Activity is finished -
         // it will remove the listening action
-        if (gameRef == null) {
+        if (gameRef == null)
+        {
             colRef = fb.collection("GameRooms");
             gameRef = colRef.document(this.docRef); // docRef
 
@@ -209,7 +207,8 @@ public class GameRoomPresenter extends GamePresenter {
     private void updateUI(RoomGame roomGame)
     {
            int row = gameLogic.userClick(roomGame.getTouchedColumn());
-            if (roomGame.getCurrentPlayer().equals(HOST) || gameLogic.getCurrentPlayer() == 1 ) {
+            if (roomGame.getCurrentPlayer().equals(HOST))
+            {
                 boardGame.updateBoard(row, roomGame.getTouchedColumn(), Color.RED);
                 gameLogic.setCounter(gameLogic.getCounter() + 1);
                 //update in fb
@@ -228,14 +227,6 @@ public class GameRoomPresenter extends GamePresenter {
             {
                 boardGame.updateBoard(row, roomGame.getTouchedColumn(), Color.YELLOW);
                 gameLogic.setCounter(gameLogic.getCounter() + 1);
-                //update in fb
-                /*
-                roomGame.setTouchedColumn(roomGame.getTouchedColumn());
-                roomGame.switchPlayer();
-                gameRef.set(roomGame);
-
-                 */
-
             }
 
    //     }
