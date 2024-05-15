@@ -28,7 +28,8 @@ public class GameRoomPresenter extends GamePresenter {
 
     private String currPlayer = "";
     private String docRef = "";
-    boolean flag = false;//it will be change after a legal action
+
+   // boolean flag = false;//it will be change after a legal action
 
     private Activity hostingActivity;
 
@@ -52,7 +53,7 @@ public class GameRoomPresenter extends GamePresenter {
         this.hostingActivity = c;
 
 
-        // if HOST- wait for other to join -> litsen for changes
+        // if HOST- wait for other to join -> listen for changes
         if (player.equals(HOST))
             listenForGameChanges();
 
@@ -60,7 +61,6 @@ public class GameRoomPresenter extends GamePresenter {
             // else - get room data, set status to joined and then listen for changes
             getRoomData();
 
-        //  boardGame =
 
     }
 
@@ -206,11 +206,8 @@ public class GameRoomPresenter extends GamePresenter {
     }
 
 
-    private void updateUI(RoomGame roomGame) {
-        // touched column
-        // currentplayer
-      //  if (flag == true)//legal move
-        //{
+    private void updateUI(RoomGame roomGame)
+    {
            int row = gameLogic.userClick(roomGame.getTouchedColumn());
             if (roomGame.getCurrentPlayer().equals(HOST) || gameLogic.getCurrentPlayer() == 1 ) {
                 boardGame.updateBoard(row, roomGame.getTouchedColumn(), Color.RED);
@@ -305,10 +302,10 @@ public class GameRoomPresenter extends GamePresenter {
 
     @Override
     public void userClick(int column)
-    //This function is only update in FB.
-    //this function is overriding the function
-    //userClick() in the presenter class.
-    //I need to update the move in fb.
+    //This function is only update in FB if it is al legal move!
+    //this function is overriding the function userClick() in the presenter class.
+    //this function update FB only (!!!) if it is a legal move. If it is not
+    //a legal move it will not update FB.
     {
         if(column ==-1)
             return;
@@ -320,14 +317,14 @@ public class GameRoomPresenter extends GamePresenter {
             return;
         }
 
-        // this means the move is legal
-        // update firebase
+        // this means the move is legal this is why I need to update FB.
             gameRef = colRef.document(docRef);
             if (roomGame != null)
             {
                 roomGame.setTouchedColumn(column);
-                switchFBPlayer(roomGame);
-                gameRef.set(roomGame);
+                switchFBPlayer(roomGame);//From "host" to "other" or from "other" to "host".
+                gameLogic.switchPlayer();//From (1) to (-1) or from (-1) to (1) in the gameLogic.
+                gameRef.set(roomGame);// update FB.
             }
 
 
