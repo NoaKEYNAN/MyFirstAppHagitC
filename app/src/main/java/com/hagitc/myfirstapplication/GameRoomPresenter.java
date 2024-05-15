@@ -306,11 +306,17 @@ public class GameRoomPresenter extends GamePresenter {
         if(column ==-1)
             return;
 
-        int row =gameLogic.checkLegalMove(column);// gameLogic.userClick(column);
+        int row = gameLogic.checkLegalMove(column);//gameLogic.userClick(column);
         if (row ==-1) //if it is a legal move -> update firebase
         {
             boardGame.displayMessage("THIS COLUMN IS FULL");
             return;
+        }
+        else
+        {
+            roomGame.setTouchedColumn(column);
+
+            updateUI(roomGame);
         }
 
         // this means the move is legal this is why I need to update FB.
@@ -318,7 +324,7 @@ public class GameRoomPresenter extends GamePresenter {
             if (roomGame != null)
             {
                 roomGame.setTouchedColumn(column);
-                switchFBPlayer(roomGame);//From "host" to "other" or from "other" to "host".
+           //     switchFBPlayer(roomGame);//From "host" to "other" or from "other" to "host".
                 gameLogic.switchPlayer();//From (1) to (-1) or from (-1) to (1) in the gameLogic.
                 gameRef.set(roomGame);// update FB.
             }
