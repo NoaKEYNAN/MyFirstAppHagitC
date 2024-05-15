@@ -130,6 +130,7 @@ public class GameRoomPresenter extends GamePresenter {
                 // we have been notified and received the new object
 
 
+
                 if (documentSnapshot == null || !documentSnapshot.exists())
                     return;
                 roomGame = documentSnapshot.toObject(RoomGame.class);
@@ -159,8 +160,6 @@ public class GameRoomPresenter extends GamePresenter {
 
                         // userClick(touchedColumn);
                         updateUI(roomGame);
-
-
                     }
                     /*
                     //roomGame.getCurrentPlayer().equals(OTHER))
@@ -306,7 +305,7 @@ public class GameRoomPresenter extends GamePresenter {
         if(column ==-1)
             return;
 
-        int row = gameLogic.checkLegalMove(column);//gameLogic.userClick(column);
+        int row = gameLogic.userClick(column);
         if (row ==-1) //if it is a legal move -> update firebase
         {
             boardGame.displayMessage("THIS COLUMN IS FULL");
