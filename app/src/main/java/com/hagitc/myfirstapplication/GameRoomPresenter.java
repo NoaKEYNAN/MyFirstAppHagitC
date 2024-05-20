@@ -9,6 +9,7 @@ import static com.hagitc.myfirstapplication.AppConstants.TWO_PHONES;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,7 +34,7 @@ public class GameRoomPresenter extends GamePresenter {
 
     private Activity hostingActivity;
 
-    private
+
 
     FirebaseFirestore fb = FirebaseFirestore.getInstance();
     //הפנייה שמאפשרת לי
@@ -129,8 +130,6 @@ public class GameRoomPresenter extends GamePresenter {
                 // a change has happened in the room game parameters
                 // we have been notified and received the new object
 
-
-
                 if (documentSnapshot == null || !documentSnapshot.exists())
                     return;
                 roomGame = documentSnapshot.toObject(RoomGame.class);
@@ -144,7 +143,7 @@ public class GameRoomPresenter extends GamePresenter {
                     // if localplayer equals FB Player
                     // this means it is my TURN
                     // only for first move column -1
-                    if (roomGame.getCurrentPlayer().equals(currPlayer)) {
+                    if (!roomGame.getCurrentPlayer().equals(currPlayer)) {
                         // if current column is -1 this means start game
                         int touchedColumn = roomGame.getTouchedColumn();
 
@@ -159,7 +158,7 @@ public class GameRoomPresenter extends GamePresenter {
                         // set
 
                         // userClick(touchedColumn);
-                        updateUI(roomGame);
+                        updateUI(roomGame,-1);
                     }
                     /*
                     //roomGame.getCurrentPlayer().equals(OTHER))
@@ -202,10 +201,17 @@ public class GameRoomPresenter extends GamePresenter {
 
     }
 
-
-    private void updateUI(RoomGame roomGame)
+    private void updateUI(RoomGame roomGame,int row)
     {
-           int row = gameLogic.userClick(roomGame.getTouchedColumn());
+
+        Log.d("UPDATE UI ", "update UI Entrance : " + row + " , " + roomGame.getTouchedColumn() + roomGame.getCurrentPlayer());
+
+        // if we came from  firebase
+        if(row==-1) {
+            row = gameLogic.userClick(roomGame.getTouchedColumn());
+            Log.d("UPDATE UI ", "from firebase : " + row + " , " + roomGame.getTouchedColumn() + roomGame.getCurrentPlayer());
+        }
+
             if (roomGame.getCurrentPlayer().equals(currPlayer))//in FB
             {
 
@@ -311,20 +317,21 @@ public class GameRoomPresenter extends GamePresenter {
             boardGame.displayMessage("THIS COLUMN IS FULL");
             return;
         }
-        else
-        {
+        // 1 move is legal
+        // 2 logical board - udated
+        // 3  user click in logic - first switches player
+        // 4 update FB with move, RoomGame current player is ME (HOST Or OTHER)
             roomGame.setTouchedColumn(column);
-
-            updateUI(roomGame);
-        }
+            roomGame.setCurrentPlayer(currPlayer);
+            updateUI(roomGame,row);
 
         // this means the move is legal this is why I need to update FB.
             gameRef = colRef.document(docRef);
             if (roomGame != null)
             {
-                roomGame.setTouchedColumn(column);
+             //   roomGame.setTouchedColumn(column);
            //     switchFBPlayer(roomGame);//From "host" to "other" or from "other" to "host".
-                gameLogic.switchPlayer();//From (1) to (-1) or from (-1) to (1) in the gameLogic.
+                //     gameLogic.switchPlayer();//From (1) to (-1) or from (-1) to (1) in the gameLogic.
                 gameRef.set(roomGame);// update FB.
             }
 
