@@ -26,16 +26,12 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class GameRoomPresenter extends GamePresenter {
 
-
     private String currPlayer = "";
     private String docRef = "";
 
    // boolean flag = false;//it will be change after a legal action
 
     private Activity hostingActivity;
-
-
-
     FirebaseFirestore fb = FirebaseFirestore.getInstance();
     //הפנייה שמאפשרת לי
     //להשתמש במחלקה של פיירבייס גם באקטיביטי הזה.
@@ -100,8 +96,6 @@ public class GameRoomPresenter extends GamePresenter {
                 {
                     Toast.makeText(hostingActivity, "NOT SUCCEEDED", Toast.LENGTH_LONG).show();
                     hostingActivity.finish();
-
-
                 }
             }
         });
@@ -211,47 +205,17 @@ public class GameRoomPresenter extends GamePresenter {
             row = gameLogic.userClick(roomGame.getTouchedColumn());
             Log.d("UPDATE UI ", "from firebase : " + row + " , " + roomGame.getTouchedColumn() + roomGame.getCurrentPlayer());
         }
-
             if (roomGame.getCurrentPlayer().equals(currPlayer))//in FB
             {
-
                 boardGame.updateBoard(row, roomGame.getTouchedColumn(), Color.RED);
                 gameLogic.setCounter(gameLogic.getCounter() + 1);
-
             }
-                else
-                {
-                    boardGame.updateBoard(row, roomGame.getTouchedColumn(), Color.YELLOW);
-                    gameLogic.setCounter(gameLogic.getCounter() + 1);
-                }
-
-                //update in fb
-                /*
-                gameRef = colRef.document(docRef);
-                if (roomGame != null) {
-                    roomGame.setTouchedColumn(roomGame.getTouchedColumn());
-                    roomGame.switchPlayer();
-                    gameRef.set(roomGame);
-
-                }
-
-                 */
-
-
-
-   //     }
-        /*
-        else //it means it is an illegal move (flag == false)
-        {
-            if (gameLogic.isBoardFull() == false)
+            else
             {
-                boardGame.displayMessage("TRY AGAIN");
-                gameLogic.switchPlayer(); //???? ONLY IN FIREBASE???
+                boardGame.updateBoard(row, roomGame.getTouchedColumn(), Color.YELLOW);
+                gameLogic.setCounter(gameLogic.getCounter() + 1);
             }
-        }
 
-
-         */
         if (gameLogic.getCounter() >= 8 && gameLogic.getCounter() <= 42)
         //בודקת אחרי המהלך במידה והוא היה חוקי, אם יש ניצחון או שהלוח מלא וזה תיקו
         {
@@ -296,6 +260,35 @@ public class GameRoomPresenter extends GamePresenter {
                 gameRef.set(roomGame);
             }
         }
+
+                //update in fb
+                /*
+                gameRef = colRef.document(docRef);
+                if (roomGame != null) {
+                    roomGame.setTouchedColumn(roomGame.getTouchedColumn());
+                    roomGame.switchPlayer();
+                    gameRef.set(roomGame);
+
+                }
+
+                 */
+
+
+
+   //     }
+        /*
+        else //it means it is an illegal move (flag == false)
+        {
+            if (gameLogic.isBoardFull() == false)
+            {
+                boardGame.displayMessage("TRY AGAIN");
+                gameLogic.switchPlayer(); //???? ONLY IN FIREBASE???
+            }
+        }
+
+
+         */
+
     }
 
 

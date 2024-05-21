@@ -59,7 +59,6 @@ public class GameRoomActivity extends AppCompatActivity {
         //It is like a list
         //that the collection is the head of the list.
         gameId = DEBUG_GAME_ID;//getIntent().getStringExtra("gameId");
-
         // OTHER or HOST
         player = getIntent().getStringExtra("player");
     }
