@@ -2,6 +2,7 @@ package com.hagitc.myfirstapplication;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -9,6 +10,8 @@ import android.icu.text.RelativeDateTimeFormatter;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 public class BoardGame extends View
 {
@@ -179,6 +182,44 @@ public class BoardGame extends View
     public void displayMessage(String message)
     {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void showGameOver(String message)
+    {
+        // Create the object of AlertDialog Builder class
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        // Set the message show for the Alert time
+        builder.setMessage("Click to return to menu");
+
+        // Set Alert Title
+        builder.setTitle(message);
+
+        // Set Cancelable false for when the user clicks on the outside the Dialog Box then it will remain show
+        builder.setCancelable(false);
+
+        // Set the positive button with yes name Lambda OnClickListener method is use of DialogInterface interface.
+        builder.setPositiveButton("EXIT", (DialogInterface.OnClickListener) (dialog, which) -> {
+            // When the user click yes button then app will close
+
+            if(context instanceof GameActivity)
+            {
+
+                ((GameActivity)context).finish();
+
+            }
+            else  if( context instanceof GameRoomActivity)
+                ((GameRoomActivity)context).finish();
+
+
+        });
+
+
+        // Create the Alert dialog
+        AlertDialog alertDialog = builder.create();
+        // Show the Alert Dialog box
+        alertDialog.show();
+
     }
 
 }

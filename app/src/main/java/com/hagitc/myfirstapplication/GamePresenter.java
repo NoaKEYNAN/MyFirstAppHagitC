@@ -3,6 +3,7 @@ package com.hagitc.myfirstapplication;
 import static com.hagitc.myfirstapplication.AppConstants.ONE_PHONE;
 import static com.hagitc.myfirstapplication.AppConstants.TWO_PHONES;
 
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.view.MotionEvent;
 import android.widget.Toast;
@@ -56,7 +57,7 @@ public class GamePresenter
                 gameLogic.switchPlayer();
             }
         }
-        if (gameLogic.getCounter() >= 8 && gameLogic.getCounter() <= 42 && flag == true)
+        if (gameLogic.getCounter() >= 7 && gameLogic.getCounter() <= 42 && flag == true)
         //בודקת אחרי המהלך במידה והוא היה חוקי, אם יש ניצחון או שהלוח מלא וזה תיקו
         {
             boolean result = gameLogic.checkForWin();
@@ -71,12 +72,19 @@ public class GamePresenter
                 {
                     currentplayer1 = 2;
                 }
-                boardGame.displayMessage("PLAYER" + currentplayer1 + " WON!");
+
+                String message = "PLAYER" + currentplayer1 + " WON!";
+                boardGame.showGameOver(message);
+               // boardGame.displayMessage("PLAYER" + currentplayer1 + " WON!");
+
 
                 //TO ADD A BUTTON THAT RESTART THE GAME
                 if (gameLogic.isBoardFull() == true)
                 {
-                    boardGame.displayMessage("THE GAME IS END");
+             //       boardGame.displayMessage("THE GAME IS END");
+                     message = "THE GAME IS END";
+                    boardGame.showGameOver(message);
+
                     //אם אחרי הניצחון הלוח מלא אז המשחק נגמר
                     //צריך להוסיף כפתור שמסיים את המשחק
                 }
@@ -84,11 +92,20 @@ public class GamePresenter
             }
             if(gameLogic.isBoardFull()==true)
             {
-                boardGame.displayMessage("IT IS A TIE AND THE GAME IS END");
+              //  boardGame.displayMessage("IT IS A TIE AND THE GAME IS END");
+
+                String message ="IT IS A TIE AND THE GAME IS END";
+                boardGame.showGameOver(message);
+
+
                 //TO ADD A RESTART BUTTON
             }
         }
     }
+
+
+
+
 
 
 }

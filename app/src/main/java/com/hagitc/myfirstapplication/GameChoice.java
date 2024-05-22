@@ -6,10 +6,13 @@ import static com.hagitc.myfirstapplication.AppConstants.ONE_PHONE;
 import static com.hagitc.myfirstapplication.AppConstants.OTHER;
 import static com.hagitc.myfirstapplication.AppConstants.TWO_PHONES;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -95,16 +98,36 @@ public class GameChoice extends AppCompatActivity {
 
      */
 
+    ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+             //   if (result.getResultCode() == Activity.RESULT_OK) {
+                    // Handle the returned data here
+                    Intent i = new Intent(this,GameRoomActivity.class);
+                    i.putExtra("gameId",gameId);
+                    i.putExtra("player",HOST);
+                    //      i.putExtra(GAME_CONFIG,TWO_PHONES);
+                    startActivity(i);
+            //    }
+            }
+    );
+
     public void shareWithFriends(View view)
     {
-       // implicit intent - אינטרנט מרומז
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        // implicit intent - אינטרנט מרומז
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);//אני מצהירה שאני רוצה לבצע פעולה של שליחה
         //this action indicates that you want to send data.
         shareIntent.setType("text/plain"); // for sharing text
         shareIntent.putExtra(Intent.EXTRA_TEXT, "Hello! THIS IS THE CODE FOR THE GAME: " + gameId + " JOIN THE GAME! THE CREATOR IS WAITING FOR YOU!");
-        startActivityForResult(Intent.createChooser(shareIntent, "Share using"),1);
+        //startActivityForResult(Intent.createChooser(shareIntent, "Share using"),1);
+        shareIntent.createChooser(shareIntent, "Share using");
+
+        //כשאני אומרת לו פור ריזאלט אני בעצם רושמת את עצמי לפעולה שמחכה לסיום השליחה
+        mActivityResultLauncher.launch(shareIntent);
+
     }
 
+    /*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -115,6 +138,8 @@ public class GameChoice extends AppCompatActivity {
           //      i.putExtra(GAME_CONFIG,TWO_PHONES);
                 startActivity(i);
     }
+
+     */
 
     public void onclickCreateGame(View view)
     {

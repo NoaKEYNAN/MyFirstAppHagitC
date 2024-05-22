@@ -137,7 +137,6 @@ public class GameRoomPresenter extends GamePresenter {
                     // if localplayer equals FB Player
                     // this means it is my TURN
                     // only for first move column -1
-                    if (!roomGame.getCurrentPlayer().equals(currPlayer)) {
                         // if current column is -1 this means start game
                         int touchedColumn = roomGame.getTouchedColumn();
 
@@ -150,6 +149,8 @@ public class GameRoomPresenter extends GamePresenter {
                         // other player has already played
                         // reach the touched column
                         // set
+
+                    if (!roomGame.getCurrentPlayer().equals(currPlayer)) {
 
                         // userClick(touchedColumn);
                         updateUI(roomGame,-1);
@@ -216,7 +217,7 @@ public class GameRoomPresenter extends GamePresenter {
                 gameLogic.setCounter(gameLogic.getCounter() + 1);
             }
 
-        if (gameLogic.getCounter() >= 8 && gameLogic.getCounter() <= 42)
+        if (gameLogic.getCounter() >= 7 && gameLogic.getCounter() <= 42)
         //בודקת אחרי המהלך במידה והוא היה חוקי, אם יש ניצחון או שהלוח מלא וזה תיקו
         {
             boolean result = gameLogic.checkForWin();
@@ -231,14 +232,22 @@ public class GameRoomPresenter extends GamePresenter {
                 {
                     currentplayer1 = 2;
                 }
-                boardGame.displayMessage("PLAYER" + currentplayer1 + " WON!");
+                //boardGame.displayMessage("PLAYER" + currentplayer1 + " WON!");
+                String message = "PLAYER " + currentplayer1 + " WON!";
+                boardGame.showGameOver(message);
 
                 //TO ADD A BUTTON THAT RESTART THE GAME
                 //to update in fb the column to become -1
+
+                /*
                 roomGame.setTouchedColumn(-1);
                 roomGame.setCurrentPlayer(HOST);
                 gameRef.set(roomGame);
-                if (gameLogic.isBoardFull() == true)
+
+                 */
+
+
+                /*if (gameLogic.isBoardFull() == true)
                 {
                     boardGame.displayMessage("THE GAME IS END");
                     //אם אחרי הניצחון הלוח מלא אז המשחק נגמר
@@ -249,10 +258,14 @@ public class GameRoomPresenter extends GamePresenter {
                     gameRef.set(roomGame);
                 }
 
+                 */
+
             }
             if(gameLogic.isBoardFull()==true)
             {
-                boardGame.displayMessage("IT IS A TIE AND THE GAME IS END");
+                //boardGame.displayMessage("IT IS A TIE AND THE GAME IS OVER");
+                String message = "IT IS A TIE AND THE GAME IS OVER";
+                boardGame.showGameOver(message);
                 //TO ADD A RESTART BUTTON
                 //to update in fb the touched column to become -1.
                 roomGame.setTouchedColumn(-1);
