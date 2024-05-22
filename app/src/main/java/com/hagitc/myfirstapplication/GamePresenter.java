@@ -73,7 +73,7 @@ public class GamePresenter
                     currentplayer1 = 2;
                 }
 
-                String message = "PLAYER" + currentplayer1 + " WON!";
+                String message = "PLAYER " + currentplayer1 + " WON!";
                 boardGame.showGameOver(message);
                // boardGame.displayMessage("PLAYER" + currentplayer1 + " WON!");
 
@@ -82,7 +82,7 @@ public class GamePresenter
                 if (gameLogic.isBoardFull() == true)
                 {
              //       boardGame.displayMessage("THE GAME IS END");
-                     message = "THE GAME IS END";
+                     message = "THE GAME IS OVER";
                     boardGame.showGameOver(message);
 
                     //אם אחרי הניצחון הלוח מלא אז המשחק נגמר
