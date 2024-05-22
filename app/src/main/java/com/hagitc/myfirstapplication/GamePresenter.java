@@ -75,15 +75,13 @@ public class GamePresenter
 
                 String message = "PLAYER " + currentplayer1 + " WON!";
                 boardGame.showGameOver(message);
-               // boardGame.displayMessage("PLAYER" + currentplayer1 + " WON!");
 
 
-                //TO ADD A BUTTON THAT RESTART THE GAME
                 if (gameLogic.isBoardFull() == true)
                 {
              //       boardGame.displayMessage("THE GAME IS END");
                      message = "THE GAME IS OVER";
-                    boardGame.showGameOver(message);
+                     boardGame.showGameOver(message);
 
                     //אם אחרי הניצחון הלוח מלא אז המשחק נגמר
                     //צריך להוסיף כפתור שמסיים את המשחק
@@ -92,13 +90,9 @@ public class GamePresenter
             }
             if(gameLogic.isBoardFull()==true)
             {
-              //  boardGame.displayMessage("IT IS A TIE AND THE GAME IS END");
-
-                String message ="IT IS A TIE AND THE GAME IS END";
+                String message ="IT IS A TIE AND THE GAME IS OVER";
                 boardGame.showGameOver(message);
 
-
-                //TO ADD A RESTART BUTTON
             }
         }
     }
