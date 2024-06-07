@@ -6,8 +6,8 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="299dp"
-        android:layout_height="468dp"
+        android:layout_width="374dp"
+        android:layout_height="496dp"
         android:background="#CCA6677D"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -40,12 +40,12 @@
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="256dp"
-            android:layout_height="200dp"
+            android:layout_width="331dp"
+            android:layout_height="235dp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="35dp"
             android:layout_marginBottom="159dp"
-            android:text="The four in a row rules are very simple. It’s always played with 2 players and in a 7x6 board. Each turn each player puts a piece of his color inside a column and it will fall until it reaches the lowest available spot. The one who can put 4 pieces of the same color in a row horizontally, vertically or diagonally wins. If no one manages to do it then the match ends in a draw."
+            android:text="The four in a row rules are very simple. It’s always played with 2 players and in a 7x6 board. Each turn each player puts a piece of his color inside a column and it will fall until it reaches the lowest available spot. The one who can put 4 pieces of the same color in a row horizontally, vertically or diagonally wins. If no one manages to do it then the match ends in a draw. When you play the game with another user(a game from two different phones)- the creator is always the player who does the first move so wait for his move and be ready to think about yours... "
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

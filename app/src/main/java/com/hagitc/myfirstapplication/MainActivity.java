@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful() == true)
                         {
-                            Toast.makeText(MainActivity.this, "Register success", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(MainActivity.this, UserActivity.class);
+                            Toast.makeText(MainActivity.this, "Register succeeded", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(MainActivity.this, GameChoice.class);
                             startActivity(intent);
                         }
                         else

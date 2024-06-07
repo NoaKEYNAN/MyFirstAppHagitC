@@ -116,56 +116,7 @@ public class BoardGame extends View
             //     int touchedRow = (int) (y / (getHeight() / 6));
             int touchedColumn = (int) (x / (getWidth() / 7));
             presenter.userClick(touchedColumn);
-            /*
-            int row = g.userClick(touchedColumn);
-            if (row != (-1))
-            {
-                if (g.getCurrentPlayer() == 1)
-                {
-                    squares[row][touchedColumn].placeCircle(Color.RED);
-                    invalidate();//
-                    g.setCounter(g.getCounter()+1);
-                }
-                else
-                {
-                    squares[row][touchedColumn].placeCircle(Color.YELLOW);
-                    invalidate();
-                    g.setCounter(g.getCounter()+1);
-                }
-            }
-            if (g.getCounter() >= 4 && g.getCounter()<=42)
-            {
-                boolean result = g.checkForWin();
-                if(result == true)
-                {
-                    int currentplayer1 = 0;
-                    if (g.getCurrentPlayer() == 1)
-                    {
-                        currentplayer1 = 1;
-                    }
-                    else
-                    {
-                        currentplayer1 = 2;
-                    }
-                    Toast.makeText(this.context, "PLAYER" + currentplayer1 + " WON!" , Toast.LENGTH_LONG).show();
 
-
-
-
-                    return true;
-                }
-
-            }
-            if(g.isBoardFull()==true)
-            {
-                Toast.makeText(this.context, "IT IS A TEKO" , Toast.LENGTH_LONG).show();
-                //print a message that the game is end in "teko".
-                return true;
-            }
-
-        }
-
-             */
             return true;
 
         }
