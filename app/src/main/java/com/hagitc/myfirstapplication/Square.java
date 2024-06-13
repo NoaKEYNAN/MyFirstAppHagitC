@@ -28,7 +28,7 @@ public class Square
 
     public void placeCircle(int circleColor)
     {
-        isOccupied=true;
+        isOccupied=true; //סימון הריבוע כנתפס
         this.circleColor =circleColor;
     }
 
@@ -54,3 +54,6 @@ public class Square
 
 
 }
+
+
+

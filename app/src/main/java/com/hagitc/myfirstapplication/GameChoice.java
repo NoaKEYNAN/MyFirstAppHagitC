@@ -43,8 +43,6 @@ public class GameChoice extends AppCompatActivity {
     BoardGame boardGame;
     private RoomGame roomGame;
 
-    //User creator = new User();
-
     private String gameId = "";
     FirebaseFirestore fb = FirebaseFirestore.getInstance();
     CollectionReference colRef;
@@ -127,19 +125,7 @@ public class GameChoice extends AppCompatActivity {
 
     }
 
-    /*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        Intent i = new Intent(this,GameRoomActivity.class);
-                i.putExtra("gameId",gameId);
-                i.putExtra("player",HOST);
-          //      i.putExtra(GAME_CONFIG,TWO_PHONES);
-                startActivity(i);
-    }
-
-     */
 
     public void onclickCreateGame(View view)
     {
@@ -183,11 +169,7 @@ public class GameChoice extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void ReadDataFromFB(View view)
-    {
 
-
-    }
 
     public void questionMarkClicked(View view) {
         Dialog dialog = new Dialog (this);
