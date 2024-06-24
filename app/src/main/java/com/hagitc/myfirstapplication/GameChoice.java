@@ -176,4 +176,10 @@ public class GameChoice extends AppCompatActivity {
         dialog.setContentView(R.layout.custom_dialog_box_instructions);
         dialog.show();
     }
+
+    public void leaderTable(View view)
+    {
+        Intent i = new Intent(this, LeaderBoard.class);
+        startActivity(i);
+    }
 }

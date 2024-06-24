@@ -17,12 +17,15 @@ import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firestore.v1.Value;
 
 public class GameRoomPresenter extends GamePresenter {
 
@@ -229,6 +232,32 @@ public class GameRoomPresenter extends GamePresenter {
                 }
                 //boardGame.displayMessage("PLAYER" + currentplayer1 + " WON!");
                 String message = "PLAYER " + currentplayer1 + " WON!";
+
+
+                FirebaseFirestore fb = FirebaseFirestore.getInstance();
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                if(this.currPlayer.equals(HOST))
+                {
+                    if(currentplayer1==1)
+                        fb.collection("User").document(auth.getCurrentUser().getUid())
+                                .update("wins", FieldValue.increment(1));
+                    else
+                        fb.collection("User").document(auth.getCurrentUser().getUid())
+                                .update("losts", FieldValue.increment(1));
+
+                }
+                else // this is other
+                {
+                    if(currentplayer1==1)
+                        fb.collection("User").document(auth.getCurrentUser().getUid())
+                                .update("losts", FieldValue.increment(1));
+                    else
+                        fb.collection("User").document(auth.getCurrentUser().getUid())
+                                .update("wins", FieldValue.increment(1));
+
+                }
+                //update firebase with
+                //
                 boardGame.showGameOver(message);
 
             }
