@@ -63,14 +63,22 @@ public class LeaderBoard extends AppCompatActivity {
 
         fb.collection("User").document(auth.getCurrentUser().getUid()).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    //בדיקה אם הצלחנו לחלץ את העצם מטיפוס יוזר שרץ על הטלפון הספציפי הזה
+                    //לכל משתמש יש את היוניק אי די שלו
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         User u = documentSnapshot.toObject(User.class);
 
 
                         int place  = users.indexOf(u.getName());
+                        //הפעולה מחפשת את האינדקס של השם הספציפי הזה שהתקבל כפרמטר
+                        //זה בעצם מחזיר את הדירוג שלו (צריך להוסיף פלוס 1)
                           TextView tv = findViewById(R.id.textViewRank);
-                          tv.setText("your rank is " + (place+1) + " wins: " + u.getWins());
+                          TextView userName = findViewById(R.id.textViewUserName);
+                          TextView numOfWins = findViewById(R.id.textViewNumberOfWins);
+                          userName.setText("Hi " + u.getName() + "!!!");
+                          tv.setText("Your rank is: " + (place+1));
+                          numOfWins.setText("Your number of wins: " + u.getWins());
 
                         //   tv.setText("Your number of wins is: " + u.getWins());
                     }
@@ -80,8 +88,7 @@ public class LeaderBoard extends AppCompatActivity {
 
     public void backToMenu(View view)
     {
-        Intent i = new Intent(this, GameChoice.class);
-        startActivity(i);
+        finish();
     }
 }
 
