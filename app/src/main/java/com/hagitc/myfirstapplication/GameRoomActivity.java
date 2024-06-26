@@ -25,6 +25,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 public class GameRoomActivity extends AppCompatActivity {
+    //ברגע שהמשתמש ילחץ על הכפתור CREATE GAME תפתח לו אפשרות לשתף את קוד המשחק עם משתמש אחר
+    // ולאחר מכן הוא יועבר לActivity הזה.
+    // לאחר שהמשתמש השני יקבל את הקוד למשחק הוא ילחץ על הכפתור JOIN GAME ובתיבת טקסט שתיפתח לו הוא יכניס את קוד המשחק שנשלח אליו.
+    // במידה והקוד תקין הוא יכנס על ידי לחיצת כפתור נוספת לחדר המשחק בו נמצא כבר המשתמש שיצר את המשחק.
+    // ברגע בו שני השחקנים ינכחו ביחד בחדר, המשתמש שיצר את המשחק יקבל הודעת Toast שעליו להתחיל את המשחק.
 
     private String gameId;
     String player="";
@@ -58,7 +63,7 @@ public class GameRoomActivity extends AppCompatActivity {
         //the room game.
         //It is like a list
         //that the collection is the head of the list.
-        gameId = DEBUG_GAME_ID;//getIntent().getStringExtra("gameId");
+        gameId = getIntent().getStringExtra("gameId");//DEBUG_GAME_ID;//getIntent().getStringExtra("gameId");
         // OTHER or HOST
         player = getIntent().getStringExtra("player");
     }

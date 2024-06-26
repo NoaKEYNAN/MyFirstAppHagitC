@@ -9,6 +9,8 @@ import android.content.Context;
 import android.os.Bundle;
 
 public class GameActivity extends AppCompatActivity {
+    //ברגע שהמשתמש ילחץ על הכפתור PRACTICE הוא יועבר לActivity הזה.
+    // כאן הוא יוכל לשחק ארבע בשורה מטלפון אחד.
     BoardGame boardGame;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

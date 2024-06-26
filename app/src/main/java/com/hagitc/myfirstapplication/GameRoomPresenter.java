@@ -27,15 +27,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firestore.v1.Value;
 
-public class GameRoomPresenter extends GamePresenter {
+public class GameRoomPresenter extends GamePresenter
+//המחלקה GameRoomPresenter  אחראית לניהול המשחק ברשת בזמן אמת בין שני שחקנים.
+// היא מאזינה לשינויים במסמך המשחק ב-Firebase Firestore ומעדכנת את ממשק המשתמש בהתאם.
+// המחלקה דואגת לסנכרון בין השחקנים ומוודאת שהמשחק מתנהל בצורה חלקה בין שני המכשירים.
+{
 
     private String currPlayer = "";
     private String docRef = "";
 
-   // boolean flag = false;//it will be change after a legal action
 
     private Activity hostingActivity;
-    //המשתנה `hostingActivity` במחלקה `GameRoomPresenter` מייצג את האקטיביטי שבו מתבצע המשחק, והוא משמש לצורך אינטראקציה עם המשתמש וה-Firebase Firestore בתוך האקטיביטי. המשתנה מוודא שהמאזינים ל-Firebase קשורים לאקטיביטי הנוכחי.
+    //המשתנה `hostingActivity` במחלקה `GameRoomPresenter` מייצג את האקטיביטי שבו מתבצע המשחק,
+    // והוא משמש לצורך אינטראקציה עם המשתמש וה-Firebase Firestore בתוך האקטיביטי.
+    // המשתנה מוודא שהמאזינים ל-Firebase קשורים לאקטיביטי הנוכחי.
     FirebaseFirestore fb = FirebaseFirestore.getInstance();
     //הפנייה שמאפשרת לי
     //להשתמש במחלקה של פיירבייס גם באקטיביטי הזה.
@@ -117,10 +122,13 @@ public class GameRoomPresenter extends GamePresenter {
 
         gameRef.addSnapshotListener(hostingActivity, new EventListener<DocumentSnapshot>() {
             //הפנייה לאקטיביטי עצמו
+            //addSnapshotListener -האזנה לכל שינוי שקורה בזמן אמת
+            //ברגע שיש שינוי הפעולה onEvent מזומנת.
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 // a change has happened in the room game parameters
                 // we have been notified and received the new object
+                //DocumentSnapshot documentSnapshot- מחזיק חדר משחק אחרי שינוי וכל פעם הוא מתעדכן
 
                 if (documentSnapshot == null || !documentSnapshot.exists())
                     return;
@@ -273,13 +281,6 @@ public class GameRoomPresenter extends GamePresenter {
                 gameRef.set(roomGame);
             }
         }
-
-
-
-
-
-
-
     }
 
 
@@ -326,18 +327,6 @@ public class GameRoomPresenter extends GamePresenter {
 
         //userClick() return which row you can paint- if the column is full it will return (-1)
         //else the function will return the row in the touched column you can paint.
-/*
-        if (row != (-1)) //if it is a legal move -> update firebase
-        {
-            flag = true;
-            updateUI(roomGame);
-        }
-        else
-        {
-            updateUI(roomGame);
-        }
-
- */
     }
 
     private void switchFBPlayer(RoomGame roomGame) {

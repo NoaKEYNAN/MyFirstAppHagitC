@@ -11,6 +11,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 public class MainPage extends AppCompatActivity {
+    //העמוד הזה מופיע בכל פעם שתכנסו לאפליקציה שלי ומופיעה בו תמונה שעליה כתוב
+    //LET’S START THIS GAME למשך זמן שהגדרתי בקוד (למשך חמש שניות).
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

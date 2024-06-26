@@ -18,6 +18,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
+    //הActivity הזה מיועד להרשמה.
+    // ברגע שנכנסים לאפליקציה בפעם הראשונה הActivity הזה מופיע וצריך לבצע הרשמה.
+    // בפעמים הבאות בהן המשתמשים יכנסו לאפליקציה שלי הם יועברו ישר לActivity הבא.
     private User user;
     FirebaseAuth auth = FirebaseAuth.getInstance(); ////הפנייה למשתנה שייבא את כל הספריית תמיכה
 
@@ -105,12 +108,6 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
-
-
-
-
-
     }
-
 
 }

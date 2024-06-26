@@ -39,6 +39,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GameChoice extends AppCompatActivity {
+    //במסך הזה תהיה למשתמשים אפשרות לבחור בין שלושה כפתורים- PRACTICE, CREATE GAME, JOIN GAME.
     LinearLayout linearLayout;
     BoardGame boardGame;
     private RoomGame roomGame;
@@ -51,12 +52,16 @@ public class GameChoice extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        //הפעולה מגדירה את תצוגת הפעילות.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_choice);
 
     }
     private void addRoomToFB()
     {
+        //הפעולה מוסיפה חדר משחק חדש למסד הנתונים של Firestore .
+        // זו פעולה סינכרונית המצפה לתוצאה על ידי הוספת חדר משחק חדש לאוסף "GameRooms" ב-Firestore  כאשר התוצאה מצליחה (בוצעה בהצלחה), הפעולה מציגה את קוד המשחק החדש שנוצר בעזרת Toast ומציגה תמונה (ImageView) של סמן שיתוף.
+        // הפעולה גם מעדכנת את המשתנה  gameId עם המזהה הייחודי של המשחק החדש, שמקורו בתוצאת ההצלחה של הוספת חדר המשחק שנוצר.
         FirebaseFirestore fb = FirebaseFirestore.getInstance();
         fb.collection("GameRooms").add(roomGame).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
         {
@@ -89,22 +94,15 @@ public class GameChoice extends AppCompatActivity {
 
     }
 
-    /*
-            RoomGame roomgame = new RoomGame();
-        roomgame.setStatus("CREATED");
-        addRoomToFB(roomgame);
-
-     */
-
+    //ה־ActivityResultLauncher<Intent> מכיל לוגיקה המנהלת את פעולת האפליקציה עם פעילות חיצונית
+    // וקורא את  GameRoomActivity  כשהפעולה מצליחה.
     ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
-             //   if (result.getResultCode() == Activity.RESULT_OK) {
-                    // Handle the returned data here
+
                     Intent i = new Intent(this,GameRoomActivity.class);
                     i.putExtra("gameId",gameId);
                     i.putExtra("player",HOST);
-                    //      i.putExtra(GAME_CONFIG,TWO_PHONES);
                     startActivity(i);
             //    }
             }
@@ -140,7 +138,6 @@ public class GameChoice extends AppCompatActivity {
     public void practicefunction(View view)
     {
         Intent intent = new Intent(GameChoice.this, GameActivity.class);
-    //    intent.putExtra(GAME_CONFIG,ONE_PHONE);
         startActivity(intent);
     }
 
@@ -165,7 +162,6 @@ public class GameChoice extends AppCompatActivity {
         i.putExtra("gameId",gameCode);
         //put extra = צירוף שדות למסך בדרך של מפתח ערך
         i.putExtra("player",OTHER);
-      //  i.putExtra(GAME_CONFIG,TWO_PHONES);
         startActivity(i);
     }
 

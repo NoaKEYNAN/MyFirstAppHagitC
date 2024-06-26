@@ -1,6 +1,9 @@
 package com.hagitc.myfirstapplication;
 
 public class AppConstants {
+    //מחלקה זו מכילה משתנים שהם קבועים ולא משנים אותם במהלך הפרויקט.
+    // בגלל שהם נמצאים במחלקה נפרדת אפשר להשתמש בקבועים אלה בכל אחת מהמחלקות האחרות ובכך למנוע לדוגמה טעויות איות.
+    // במחלקה זו יש הגדרות של משתנים בלבד, אין בה פעולות.
 
     public final static int ONE_PHONE = 1;
     public final static int TWO_PHONES = 2;

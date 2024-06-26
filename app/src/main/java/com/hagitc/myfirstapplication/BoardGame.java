@@ -55,7 +55,9 @@ public class BoardGame extends View
         fill.setColor(Color.WHITE);
         // pass the context for firebase listening - reomve when activity is finished
         presenter = new GameRoomPresenter(this,g,docReference,player,(Activity)context);
-
+        //הפרמטר  player מכיל את הזהות של השחקן הנוכחי שהתחבר לחדר המשחק.
+        //הפרמטר (Activity)context מכיל את הפעילות (Activity) המכילה את הלוח. זה נחוץ לצורך סגירת הפעילות אם המשחק נגמר.
+        //הפרמטר  docReference מכיל את הפנייה למסמך במסד הנתונים של Firebase שבו מאוחסן מידע על המשחק.
     }
     public GamePresenter getPresenter()
     {
@@ -81,10 +83,13 @@ public class BoardGame extends View
 
     public void drawBoard(Canvas canvas)
     {
+        //הפעולה מציירת את הלוח על המסך. תתי הפעולות שבתוכה מבצעות את הצעדים הבאים:
+        //מגדירה את המשתנים x ו-y בכדי להתחיל לצייר את הריבועים במיקומם הראשוניים (0, 0) .
         int x = 0;
         int y = 0;
         int w = canvas.getWidth()/7;
         int h = canvas.getWidth()/6;
+        //מחשבת את הרוחב והגובה של כל ריבוע על פי רוחב המסך, כך שיהיה 7 ריבועים ברוחב ו-6 בגובה.
 
         for(int i=0; i<squares.length; i++)
         {
@@ -105,6 +110,12 @@ public class BoardGame extends View
             y = y + h;
             x = 0;
         }
+        //מבצעת לולאה כפולה על כל הריבועים בלוח:
+        //בתוך הלולאה החיצונית, מגדירה את הצבע, העובי והסגנון של קווי המסגרת.
+        //בודקת אם הריבוע בתא המסוים של המטריצה כבר קיים (המשתנה (squares[i][j]) ואם לא, יוצרת ריבוע חדש ומציירת אותו על המסך.
+        //מציירת את הריבוע על המסך בעזרת הפעולה squares[i][j].draw(canvas).
+        //מעדכנת את ערך ה-x על מנת שהריבוע הבא יתווסף לימינו שלו.
+        //לאחר סיום לולאת המקורה, מעדכנת את ערך ה-y כדי להתחיל לצייר את השורה הבאה בלוח, ומאפסת את ערך ה-x כדי להתחיל את הציור מהשורה הראשונה בכל שורה חדשה.
     }
 
     public boolean onTouchEvent(MotionEvent event)
@@ -113,12 +124,14 @@ public class BoardGame extends View
         {
             float x = event.getX();
             float y = event.getY();
-            //     int touchedRow = (int) (y / (getHeight() / 6));
             int touchedColumn = (int) (x / (getWidth() / 7));
+            //מחשבת את העמודה (touchedColumn) בה נלחץ המגע על פי רוחב המסך ומספר העמודות בלוח המשחק.
+            // זה נעשה על ידי חלוקת רוחב המסך על פי מספר העמודות בלוח.
             presenter.userClick(touchedColumn);
+            //קוראת לפעולה userClick() של המציג  (presenter)  שמטפלת בלחיצת המשתמש ומעבירה לה את מיקום העמודה שנלחצה.
 
             return true;
-
+            //הפעולה מחזירה true על מנת לציין שהיא טיפלה באירוע המגע.
         }
         return true;
     }
@@ -128,6 +141,8 @@ public class BoardGame extends View
     {
         squares[row][col].placeCircle(color);
         invalidate();
+        //הפעולה קוראת ל־invalidate()  על מנת לגרום למבנה המשחק (במקרה זה, מחלקת BoardGam )
+        // לצייר את עצמו מחדש עם השינויים החדשים. זה מבטיח שהלוח יעודכן גם על המסך.
     }
 
     public void displayMessage(String message)
