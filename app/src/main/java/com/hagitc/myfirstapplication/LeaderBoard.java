@@ -26,7 +26,13 @@ public class LeaderBoard extends AppCompatActivity {
 
     ArrayList<String> users = new ArrayList<>();
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        //הפעולה נקראת בעת יצירת המחלקה.
+        //   מגדירה את ה-Layout של הפעילות R.layout.activity_leader_board.
+        //   ביצוע שאילתה למסד הנתונים לקבלת רשימת המשתמשים ממוינת לפי מספר הניצחונות בסדר יורד.
+        //   בעזרת ListView ו-ArrayAdapter מציגה את טבלת המובילים בממשק המשתמש.
+        //    לאחר קבלת רשימת המשתמשים, קוראת לפעולה getUser() כדי להציג את המידע של המשתמש הנוכחי.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leader_board);
         fb.collection("User").orderBy("wins", Query.Direction.DESCENDING).get()
@@ -36,16 +42,15 @@ public class LeaderBoard extends AppCompatActivity {
                         for(int i=0;i< queryDocumentSnapshots.getDocuments().size();i++)
                         {
                             User u = queryDocumentSnapshots.getDocuments().get(i).toObject(User.class);
-
                             String toShow = "" + (i+1) + ".\t" + u.getName() + " : " + u.getWins();
-                            arr.add(toShow);
-                            users.add(u.getName());
+                            arr.add(toShow); // מערך המכיל מה כל שורה בטבלה תציג.
+                            users.add(u.getName());// מערך המכיל רק את שמות המשתמשים
 
                         }
 
                         ListView lv = findViewById(R.id.listView);
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(LeaderBoard.this, android.R.layout.simple_list_item_1,arr);
-
+                        //מצביע על יצירת מופע של ArrayAdapter שמייצג את רשימת המובילים באפליקציה.
                         lv.setAdapter(adapter);
 
                         getUser();

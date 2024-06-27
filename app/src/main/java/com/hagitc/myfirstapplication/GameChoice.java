@@ -80,7 +80,6 @@ public class GameChoice extends AppCompatActivity {
              //   shareWithFriends(gameId);
 
 
-
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
@@ -115,9 +114,7 @@ public class GameChoice extends AppCompatActivity {
         //this action indicates that you want to send data.
         shareIntent.setType("text/plain"); // for sharing text
         shareIntent.putExtra(Intent.EXTRA_TEXT, "Hello! THIS IS THE CODE FOR THE GAME: " + gameId + " JOIN THE GAME! THE CREATOR IS WAITING FOR YOU!");
-        //startActivityForResult(Intent.createChooser(shareIntent, "Share using"),1);
         shareIntent.createChooser(shareIntent, "Share using");
-
         //כשאני אומרת לו פור ריזאלט אני בעצם רושמת את עצמי לפעולה שמחכה לסיום השליחה
         mActivityResultLauncher.launch(shareIntent);
 

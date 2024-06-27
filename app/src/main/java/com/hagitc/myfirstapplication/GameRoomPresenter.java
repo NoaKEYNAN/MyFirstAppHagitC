@@ -55,9 +55,9 @@ public class GameRoomPresenter extends GamePresenter
         super(boardGame, gameLogic);
         this.gameConfig = TWO_PHONES;
         this.docRef = docRef;
+        //- `String docRef`: מזהה ייחודי עבור המסמך ב-Firebase Firestore המשמש לייצוג חדר המשחק.
         this.currPlayer = player;
         this.hostingActivity = c;
-
 
         // if HOST- wait for other to join -> listen for changes
         if (player.equals(HOST))
@@ -71,13 +71,22 @@ public class GameRoomPresenter extends GamePresenter
     // only OTHER player reaches
 
     private void getRoomData() {
+        //פעולה זו משיגה את נתוני חדר המשחק מ-Firebase Firestore,
+        // ואם השחקן הנוכחי הוא OTHER, מעדכנת את הסטטוס ל-JOINED
+        // ולאחר מכן מאזינה לשינויים בחדר המשחק באמצעות listenForGameChanges.
 
         colRef = fb.collection("GameRooms");
-        gameRef = colRef.document(this.docRef); // docRef
+        gameRef = colRef.document(this.docRef); // לחלץ את חדר המשחק הספציפי המבוקש
 
 
+
+        //ביצוע בקשה אסינכרונית לקבלת הנתונים מהמסמך ב-Firebase Firestore
+        //(ביצוע בקשה אסינכרונית משמעותו שהבקשה מתבצעת ברקע מבלי לחסום את המשך הרצת התוכנית.
+        // במקום לחכות לסיום הבקשה, התוכנית ממשיכה לרוץ והשלמת הבקשה תטופל ברגע שהיא תסתיים).
         gameRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
+            //כאשר הבקשה מסתיימת, בודקים אם היא הצליחה.
+            // אם כן, מתבצע ניסיון להמיר את התוצאה לאובייקט מסוג `RoomGame`.
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     RoomGame room = (task.getResult().toObject(RoomGame.class));
@@ -108,6 +117,9 @@ public class GameRoomPresenter extends GamePresenter
 
     //
     private void listenForGameChanges() {
+        //מטרת הפעולה להאזין לשינויים בנתוני המשחק במסמך Firebase Firestore ולהגיב לשינויים אלו בזמן אמת.
+        // פעולה זו מאפשרת לעדכן את המצב המקומי של המשחק באפליקציה ברגע שמתרחש שינוי בנתוני המשחק,
+        // כמו מהלך חדש של שחקן או שינוי בסטטוס המשחק.
 
         // including - this which is a reference to the activity
         // this means that once Activity is finished -
@@ -132,7 +144,7 @@ public class GameRoomPresenter extends GamePresenter
 
                 if (documentSnapshot == null || !documentSnapshot.exists())
                     return;
-                roomGame = documentSnapshot.toObject(RoomGame.class);
+                roomGame = documentSnapshot.toObject(RoomGame.class);//המרה לעצם מטפוס RoomGame
                 // this means HOST recieved before other joined...
                 // should nut happen but better be safe than sorry:-)
                 if (roomGame.getStatus().equals(CREATED)) {
@@ -161,22 +173,7 @@ public class GameRoomPresenter extends GamePresenter
                         // userClick(touchedColumn);
                         updateUI(roomGame,-1);
                     }
-                    /*
-                    //roomGame.getCurrentPlayer().equals(OTHER))
-                    else // this means it is OTHER
-                    {
 
-                        int touchedColumn = roomGame.getTouchedColumn();
-
-                        if (touchedColumn == -1) {
-                            Toast.makeText(hostingActivity, " Wait for first player to start...", Toast.LENGTH_LONG).show();
-                            return;
-                        }
-                        // this means that there is a move
-                        userClick(touchedColumn);
-                    }
-
-                     */
                 }
 
 
@@ -204,14 +201,17 @@ public class GameRoomPresenter extends GamePresenter
 
     private void updateUI(RoomGame roomGame,int row)
     {
-
-        Log.d("UPDATE UI ", "update UI Entrance : " + row + " , " + roomGame.getTouchedColumn() + roomGame.getCurrentPlayer());
-
         // if we came from  firebase
         if(row==-1) {
+            //אם השורה שהתקבלה היא `-1`,
+            // זה אומר שהשינוי הגיע מ-Firebase
+            // ולכן יש לחשב את השורה בהתאם לעמודה שהתקבלה.
             row = gameLogic.userClick(roomGame.getTouchedColumn());
-            Log.d("UPDATE UI ", "from firebase : " + row + " , " + roomGame.getTouchedColumn() + roomGame.getCurrentPlayer());
         }
+        //עדכון הלוח בהתאם לשחקן הנוכחי:
+        //אם השחקן הנוכחי הוא השחקן שמחובר כרגע (השחקן המקומי), הצבע של העיגול יהיה אדום.
+        //אם השחקן הנוכחי הוא השחקן השני, הצבע של העיגול יהיה צהוב.
+        //מעדכנים את הלוח בהתאם ומעלים את מונה המהלכים.
             if (roomGame.getCurrentPlayer().equals(currPlayer))//in FB
             {
                 boardGame.updateBoard(row, roomGame.getTouchedColumn(), Color.RED);
@@ -288,16 +288,24 @@ public class GameRoomPresenter extends GamePresenter
 
     @Override
     public void userClick(int column)
-    //This function is only update in FB if it is al legal move!
+    //This function is only update in FB if it is a legal move!
     //this function is overriding the function userClick() in the presenter class.
     //this function update FB only (!!!) if it is a legal move. If it is not
     //a legal move it will not update FB.
+            //הפונקציה בודקת אם המהלך שביצע המשתמש הוא חוקי,
+    // ואם כן, היא מעדכנת את מצב המשחק בתצוגה וב-Firebase.
+    // אם המהלך אינו חוקי, היא מציגה הודעת שגיאה למשתמש.
     {
         if(column ==-1)
             return;
 
         int row = gameLogic.userClick(column);
-        if (row ==-1) //if it is a legal move -> update firebase
+        //בודקת אם ניתן לבצע את המהלך בעמודה שנבחרה
+        // ומחזירה את השורה שבה ניתן להניח את העיגול.
+        // אם השורה שהתקבלה היא `-1`,
+        // זה אומר שהעמודה מלאה והמהלך אינו חוקי.
+        // במקרה כזה, מוצגת הודעה מתאימה למשתמש והפונקציה מסיימת את פעולתה.
+        if (row ==-1)
         {
             boardGame.displayMessage("THIS COLUMN IS FULL");
             return;
@@ -306,11 +314,16 @@ public class GameRoomPresenter extends GamePresenter
         // 2 logical board - udated
         // 3  user click in logic - first switches player
         // 4 update FB with move, RoomGame current player is ME (HOST Or OTHER)
+
+        //אם המהלך חוקי, הפונקציה מעדכנת את העמודה שנבחרה ואת השחקן הנוכחי במשתנה `roomGame`.
+        // לאחר מכן, היא מעדכנת את התצוגה בעזרת הפעולה `updateUI`.
             roomGame.setTouchedColumn(column);
             roomGame.setCurrentPlayer(currPlayer);
             updateUI(roomGame,row);
 
         // this means the move is legal this is why I need to update FB.
+        ////עדכון המצב ב-Firebase:
+        ////הפעולה מוודאת ש-`gameRef` מכיל את ההפניה למסמך ב-Firebase, ולאחר מכן מעדכנת את המסמך עם המצב החדש של המשחק.
             gameRef = colRef.document(docRef);
             if (roomGame != null)
             {

@@ -4,6 +4,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 public class MyCircle {
+    //המחלקה  MyCircle מייצגת עיגול עם מאפיינים של מיקום x,y, רדיוס וצבע.
+    // היא כוללת פונקציות גישה לשינוי וקבלת המאפיינים הללו,
+    // וכן בנאי שמאפשר יצירה קלה של עיגול חדש עם הערכים הרצויים.
     private float x;
     private float y;
     private float r;

@@ -2,6 +2,9 @@ package com.hagitc.myfirstapplication;
 
 public class RoomGame
 {
+    //מטרת המחלקה היא לאפשר ניהול ושליטה בפרטי המשחק בחדר,
+    // כולל שמירה על מי הוא השחקן הנוכחי,
+    // באיזה סטטוס נמצא המשחק וכיצד לבצע שינויים במשחק על פי הפעולות הנדרשות.
     private String status;//התחלתי משחק,הצטרפתי...
     private String namePlayer1;
     private String namePlayer2;
